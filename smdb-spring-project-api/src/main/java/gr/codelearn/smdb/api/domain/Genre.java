@@ -11,13 +11,23 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
-@Entity
-@Table(name = "GENRES")
-@SequenceGenerator(name = "idGenerator", sequenceName = "GENRES_SEQ", initialValue = 1, allocationSize = 1)
-public class Genre extends BaseModel {
-	@NotNull
-	private String name;
+@AllArgsConstructor
+@Getter
+public enum Genre {
+	COMEDY("comedy"),
+	SCIFI("sci-fi"),
+	HORROR("horror"),
+	ROMANCE("romance"),
+	ACTION("action"),
+	THRILLER("thriller"),
+	ANIMATION("animation"),
+	CRIME("crime"),
+	DRAMA("drama"),
+	FANTASY("fantasy"),
+	HISTORICAL("historical"),
+	WESTERN("western"),
+	OTHER("other");
 
-	@ManyToMany(mappedBy = "genres")
-	private Set<Film> films;
+	private final String name;
+
 }

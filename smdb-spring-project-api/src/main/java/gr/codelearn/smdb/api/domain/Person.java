@@ -23,5 +23,5 @@ public class Person extends BaseModel {
 	private Date deathDate;
 
 	@OneToMany(mappedBy = "person")
-	private Set<FilmContributor> filmContributions;
+	private Set<ContentContributor> contentContributors;
 }
