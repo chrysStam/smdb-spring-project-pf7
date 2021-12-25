@@ -2,7 +2,9 @@ package gr.codelearn.smdb.api.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -13,26 +15,36 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Entity()
 @Table(name = "CONTENTS")
 @SequenceGenerator(name = "idGenerator", sequenceName = "CONTENTS_SEQ", initialValue = 1, allocationSize = 1)
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Content extends BaseModel{
 	@NotNull
+	@Column(length = 256)
 	private String title;
+
+	@Column(precision = 3, scale = 1)
 	private Double rating;
-	@Column(name="plot_summary")
-	private String plotSummary;
-	@Column(name="release_year")
-	private Integer releaseYear;
-	private String language;
-	@Column(columnDefinition = "LONGVARCHAR")
-	@Enumerated(EnumType.STRING)
-	@ElementCollection
-//	@CollectionTable
-	private Set<Genre> genres;
 //	private Float imdbScore;
 
+	@Column(length = 4096, name="plot_summary")
+	private String plotSummary;
+
+	@Column(name="release_year")
+	private Integer releaseYear;
+
+	@Column(length = 30)
+	private String language;
+
+//	@Column(columnDefinition = "LONGVARCHAR")
+	@Enumerated(EnumType.STRING)
+	@ElementCollection		// Implements a one-to-many relationship with simple, non-entity types
+//	@CollectionTable		// Specifies the properties of the table that is created
+	private Set<Genre> genres;
+
 	@OneToMany(mappedBy = "content")
-	private Set<ContentContributor> contributors;
+	private Set<ContentContributor> contentContributors;
 }
