@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -43,8 +44,8 @@ public class Content extends BaseModel{
 	@Enumerated(EnumType.STRING)
 	@ElementCollection		// Implements a one-to-many relationship with simple, non-entity types
 //	@CollectionTable		// Specifies the properties of the table that is created
-	private Set<Genre> genres;
+	private final Set<Genre> genres = new HashSet<>();
 
 	@OneToMany(mappedBy = "content")
-	private Set<ContentContributor> contentContributors;
+	private final Set<ContentContributor> contentContributors = new HashSet<>();
 }

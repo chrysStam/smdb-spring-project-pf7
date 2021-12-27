@@ -39,13 +39,13 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 
 		/* Add Films */
 
-		Film film = Film.builder().title("Once Upon a Time in... Hollywood").genres(new HashSet<>()).duration(182).build();
+		Film film = Film.builder().title("Once Upon a Time in... Hollywood").duration(182).build();
 
 		filmService.addGenre(film, Genre.DRAMA);
 		filmService.addGenre(film, Genre.COMEDY);
 		filmService.create(film);
 
-		TVShow tvShow = TVShow.builder().title("Game of Thrones").genres(new HashSet<>()).numSeasons(8).build();
+		TVShow tvShow = TVShow.builder().title("Game of Thrones").numSeasons(8).build();
 		tvShowService.addGenre(tvShow, Genre.FANTASY);
 		tvShowService.addGenre(tvShow, Genre.ACTION);
 		tvShowService.create(tvShow);

@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -44,5 +45,5 @@ public class Person extends BaseModel {
 	private Date deathDate;
 
 	@OneToMany(mappedBy = "person")
-	private Set<ContentContributor> contentContributors;
+	private final Set<ContentContributor> contentContributors = new HashSet<>();
 }
