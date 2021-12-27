@@ -7,8 +7,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
-
 public abstract class BaseServiceImpl<T extends BaseModel> extends AbstractLogComponent
 		implements BaseService<T, Long> {
 	public abstract JpaRepository<T, Long> getRepository();
