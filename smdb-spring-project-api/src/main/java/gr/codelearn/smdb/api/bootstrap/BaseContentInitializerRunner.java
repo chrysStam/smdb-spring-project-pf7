@@ -1,22 +1,20 @@
 package gr.codelearn.smdb.api.bootstrap;
 
 import gr.codelearn.smdb.api.base.AbstractLogComponent;
-import gr.codelearn.smdb.api.domain.Content;
 import gr.codelearn.smdb.api.domain.Film;
 import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.Person;
 import gr.codelearn.smdb.api.domain.TVShow;
 import gr.codelearn.smdb.api.service.FilmService;
 import gr.codelearn.smdb.api.service.PersonService;
+import gr.codelearn.smdb.api.service.TVShowService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.HashSet;
 
 @Component
 @Profile("base-content-initializer")
@@ -24,6 +22,7 @@ import java.util.Set;
 public class BaseContentInitializerRunner extends AbstractLogComponent implements CommandLineRunner {
 	private final PersonService personService;
 	private final FilmService filmService;
+	private final TVShowService tvShowService;
 
 	@Override
 	public void run(final String... args) throws Exception {
@@ -40,13 +39,16 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 
 		/* Add Films */
 
-		//Film film = filmService.create(Film.builder().genres(new Set(Genre.ACTION, Genre.CRIME)).build());
+		Film film = Film.builder().title("Once Upon a Time in... Hollywood").genres(new HashSet<>()).duration(182).build();
 
-		//Film film = Film.builder().title("Once Upon a Time in... Hollywood").duration(182).build();
-		//filmService.addGenre(film, Genre.DRAMA);
-		//...
+		filmService.addGenre(film, Genre.DRAMA);
+		filmService.addGenre(film, Genre.COMEDY);
+		filmService.create(film);
 
-		//filmService.create(film);
+		TVShow tvShow = TVShow.builder().title("Game of Thrones").genres(new HashSet<>()).numSeasons(8).build();
+		tvShowService.addGenre(tvShow, Genre.FANTASY);
+		tvShowService.addGenre(tvShow, Genre.ACTION);
+		tvShowService.create(tvShow);
 
 	}
 }

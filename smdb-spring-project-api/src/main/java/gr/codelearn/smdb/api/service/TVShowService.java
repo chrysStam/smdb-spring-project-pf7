@@ -7,11 +7,9 @@ import gr.codelearn.smdb.api.transfer.KeyValue;
 
 import java.util.List;
 
-public interface TVShowService extends BaseService<TVShow, Long> {
+public interface TVShowService extends ContentService<TVShow> {
 	// Long getNumOfShowsByGenre(Genre genre);
 
 	// For each year, get num of shows of that genre
 	// List<KeyValue<Integer,Long>> getNumOfShowsPerYearByGenre(Genre genre);
-
-
 }
