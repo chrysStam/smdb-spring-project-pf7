@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public abstract class BaseServiceImpl<T extends BaseModel> extends AbstractLogComponent
 		implements BaseService<T, Long> {
 	public abstract JpaRepository<T, Long> getRepository();
@@ -16,5 +18,11 @@ public abstract class BaseServiceImpl<T extends BaseModel> extends AbstractLogCo
 	public T create(final T clazz) {
 		logger.trace("Creating {}.", clazz);
 		return getRepository().save(clazz);
+	}
+
+	@Override
+	public List<T> findAll() {
+		logger.trace("Retrieving all data.");
+		return getRepository().findAll();
 	}
 }
