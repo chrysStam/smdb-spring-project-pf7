@@ -38,10 +38,10 @@ public class Person extends BaseModel {
 	private String surname;
 
 	@NotNull
-	@Temporal(TemporalType.DATE)	// DD-MM-YY
+	@Temporal(TemporalType.DATE)	// YYYY-MM-DD
 	private Date birthDate;
 
-	@Temporal(TemporalType.DATE)	// DD-MM-YY
+	@Temporal(TemporalType.DATE)	// YYYY-MM-DD
 	private Date deathDate;
 
 	@OneToMany(mappedBy = "person")

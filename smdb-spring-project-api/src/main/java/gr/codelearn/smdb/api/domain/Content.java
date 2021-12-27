@@ -8,6 +8,10 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,18 +31,25 @@ public class Content extends BaseModel{
 	@Column(length = 256)
 	private String title;
 
-	@Column(precision = 3, scale = 1)
-	private Double rating;
-//	private Float imdbScore;
+	@DecimalMin(value = "0.0", inclusive = true)
+	@DecimalMax(value = "10.0", inclusive = true)
+	@Digits(integer = 2, fraction = 1)
+	@Column(name = "imdb_score")
+	private Double imdbScore;
 
 	@Column(length = 4096, name="plot_summary")
 	private String plotSummary;
 
 	@Column(name="release_year")
+	@Min(1878)
 	private Integer releaseYear;
 
 	@Column(length = 30)
 	private String language;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "motion_picture_rating")
+	private MotionPictureRating motionPictureRating;
 
 //	@Column(columnDefinition = "LONGVARCHAR")
 	@Enumerated(EnumType.STRING)
@@ -48,4 +59,7 @@ public class Content extends BaseModel{
 
 	@OneToMany(mappedBy = "content")
 	private final Set<ContentContributor> contentContributors = new HashSet<>();
+
+	@OneToMany(mappedBy = "content")
+	private final Set<CriticReview> criticReviews = new HashSet<>();
 }
