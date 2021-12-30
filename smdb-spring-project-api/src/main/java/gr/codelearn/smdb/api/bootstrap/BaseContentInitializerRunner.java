@@ -67,6 +67,7 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 		FileWriter fileWriter = new FileWriter("people.csv");	// Will be replaced by controller writer
 
 		List<Person> people = personService.findAll();
+		// Can add column names on the first row of the csv if wanted
 		try (CSVPrinter csvPrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT)) {
 			for (Person p : people) {
 				csvPrinter.printRecord(p.getId(), p.getName(), p.getSurname(), p.getBirthDate(), p.getDeathDate());
