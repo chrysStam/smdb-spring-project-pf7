@@ -1,5 +1,6 @@
 package gr.codelearn.smdb.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -44,6 +45,7 @@ public class Person extends BaseModel {
 	@Temporal(TemporalType.DATE)	// YYYY-MM-DD
 	private Date deathDate;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "person")
 	private final Set<ContentContributor> contentContributors = new HashSet<>();
 }
