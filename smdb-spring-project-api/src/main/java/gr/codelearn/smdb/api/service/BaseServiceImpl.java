@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public abstract class BaseServiceImpl<T extends BaseModel> extends AbstractLogComponent
 		implements BaseService<T, Long> {
@@ -25,6 +26,11 @@ public abstract class BaseServiceImpl<T extends BaseModel> extends AbstractLogCo
 	public void update(final T clazz) {
 		logger.trace("Updating {}.", clazz);
 		getRepository().save(clazz);
+	}
+
+	@Override
+	public T find(Long id) {
+		return getRepository().findById(id).orElseThrow(NoSuchElementException::new);
 	}
 
 	@Override

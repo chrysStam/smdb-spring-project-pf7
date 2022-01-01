@@ -48,14 +48,12 @@ public class Content extends BaseModel{
 	@Column(length = 30)
 	private String language;
 
-//	@Enumerated(EnumType.STRING)	// Not needed since we utilize a custom converter for MotionPictureRating
 	@Column(name = "motion_picture_rating")
 	private MotionPictureRating motionPictureRating;
 
-//	@Column(columnDefinition = "LONGVARCHAR")
-//	@Enumerated(EnumType.STRING)	// Not needed since we utilize a custom converter for Genre
-	@ElementCollection		// Implements a one-to-many relationship with simple, non-entity types
-//	@CollectionTable		// Specifies the properties of the table that is created
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
+	@ElementCollection(fetch = FetchType.EAGER)
 	private final Set<Genre> genres = new HashSet<>();
 
 	@JsonManagedReference("contentContributors")

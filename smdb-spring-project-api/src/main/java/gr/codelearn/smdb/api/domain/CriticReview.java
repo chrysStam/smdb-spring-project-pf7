@@ -1,7 +1,6 @@
 package gr.codelearn.smdb.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +22,6 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 @Data
 @SuperBuilder
 @NoArgsConstructor
