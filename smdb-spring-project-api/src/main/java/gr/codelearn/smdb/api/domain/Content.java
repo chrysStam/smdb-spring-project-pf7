@@ -1,7 +1,6 @@
 package gr.codelearn.smdb.api.domain;
 
-import gr.codelearn.smdb.api.converter.GenreConverter;
-import gr.codelearn.smdb.api.converter.MotionPictureRatingConverter;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -59,13 +58,15 @@ public class Content extends BaseModel{
 //	@CollectionTable		// Specifies the properties of the table that is created
 	private final Set<Genre> genres = new HashSet<>();
 
+	@JsonManagedReference("contentContributors")
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
-	@OneToMany(mappedBy = "content", cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy = "content", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private final Set<ContentContributor> contentContributors = new HashSet<>();
 
+	@JsonManagedReference("criticReviews")
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
-	@OneToMany(mappedBy = "content")
+	@OneToMany(mappedBy = "content", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private final Set<CriticReview> criticReviews = new HashSet<>();
 }

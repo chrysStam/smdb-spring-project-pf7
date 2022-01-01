@@ -1,6 +1,7 @@
 package gr.codelearn.smdb.api.bootstrap;
 
 import gr.codelearn.smdb.api.base.AbstractLogComponent;
+import gr.codelearn.smdb.api.domain.CriticReview;
 import gr.codelearn.smdb.api.domain.Film;
 import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.MotionPictureRating;
@@ -64,6 +65,13 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 
 		// This will be ignored since (person,role) tuple is already added
 		filmService.addContributor(film, person2, Role.ACTOR);
+
+		filmService.update(film);
+
+		// Adding a critic review
+		CriticReview criticReview =
+				CriticReview.builder().author("Theodoros Mystiloglou").body("It was ok.").rating(7.2).build();
+		filmService.addCriticReview(film, criticReview);
 
 		filmService.update(film);
 
