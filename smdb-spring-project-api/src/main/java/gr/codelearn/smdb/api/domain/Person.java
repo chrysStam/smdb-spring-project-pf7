@@ -46,6 +46,8 @@ public class Person extends BaseModel {
 	private Date deathDate;
 
 	@JsonIgnore
+	@ToString.Exclude
+	@EqualsAndHashCode.Exclude
 	@OneToMany(mappedBy = "person")
 	private final Set<ContentContributor> contentContributors = new HashSet<>();
 }

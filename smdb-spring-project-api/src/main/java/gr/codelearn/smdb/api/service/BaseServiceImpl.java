@@ -21,6 +21,13 @@ public abstract class BaseServiceImpl<T extends BaseModel> extends AbstractLogCo
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
+	public void update(final T clazz) {
+		logger.trace("Updating {}.", clazz);
+		getRepository().save(clazz);
+	}
+
+	@Override
 	public List<T> findAll() {
 		logger.trace("Retrieving all data.");
 		return getRepository().findAll();

@@ -1,15 +1,19 @@
 package gr.codelearn.smdb.api.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Data
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "CONTENT_CONTRIBUTORS")
-@SequenceGenerator(name = "idGenerator", sequenceName = "CONTENT_CONTRIBUTORS_SEQ", initialValue = 1, allocationSize = 1)
 public class ContentContributor implements Serializable {
 	@EmbeddedId
 	private ContentContributorKey key;
