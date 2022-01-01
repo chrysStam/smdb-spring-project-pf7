@@ -47,7 +47,7 @@
 	</Appenders>
 
 	<Loggers>
-		<AsyncLogger name="gr.codelearn.spring" level="trace" additivity="false">
+		<AsyncLogger name="gr.codelearn.smdb" level="trace" additivity="false">
 			<AppenderRef ref="ConsoleAppender"/>
 			<AppenderRef ref="DefaultAppender"/>
 		</AsyncLogger>

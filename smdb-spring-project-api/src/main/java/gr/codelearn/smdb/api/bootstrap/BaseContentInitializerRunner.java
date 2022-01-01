@@ -3,7 +3,9 @@ package gr.codelearn.smdb.api.bootstrap;
 import gr.codelearn.smdb.api.base.AbstractLogComponent;
 import gr.codelearn.smdb.api.domain.Film;
 import gr.codelearn.smdb.api.domain.Genre;
+import gr.codelearn.smdb.api.domain.MotionPictureRating;
 import gr.codelearn.smdb.api.domain.Person;
+import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.domain.TVShow;
 import gr.codelearn.smdb.api.service.FilmService;
 import gr.codelearn.smdb.api.service.PersonService;
@@ -34,23 +36,36 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 	@Override
 	public void run(final String... args) throws Exception {
 		/* Add People */
-		Person person = personService.create(Person.builder().name("Theodoros").surname("DiMystiloglou").birthDate(
-				Date.valueOf("1997-11-30")).build());
-		logger.info("Created {}.", person);
+
+		Person person1 = personService.create(Person.builder().name("Brad").surname("Pitt").birthDate(
+				Date.valueOf("1963-12-18")).build());
 		Person person2 = personService.create(Person.builder().name("Leonardo").surname("DiCaprio").birthDate(
 				Date.valueOf("1974-11-11")).build());
-		logger.info("Created {}.", person2);
 		Person person3 = personService.create(Person.builder().name("Quentin").surname("Tarantino").birthDate(
 				Date.valueOf("1963-03-27")).build());
-		logger.info("Created {}.", person3);
 
-		/* Add Films */
+		/* Add Films & TVShows */
 
-		Film film = Film.builder().title("Once Upon a Time in... Hollywood").duration(182).build();
-
+		Film film =	Film.builder().title("Once Upon a Time in... Hollywood").duration(182).motionPictureRating(
+						MotionPictureRating.RESTRICTED).build();
 		filmService.addGenre(film, Genre.DRAMA);
 		filmService.addGenre(film, Genre.COMEDY);
-		filmService.create(film);
+
+		// This will be ignored since genre is already added
+		filmService.addGenre(film, Genre.DRAMA);
+
+		film = filmService.create(film);
+
+		// Now that film's id has been generated, we can populate ContentContributor table with contributors
+		filmService.addContributor(film, person1, Role.ACTOR);
+		filmService.addContributor(film, person2, Role.ACTOR);
+		filmService.addContributor(film, person3, Role.DIRECTOR);
+		filmService.addContributor(film, person3, Role.PRODUCER);	// A person can have multiple roles
+
+		// This will be ignored since (person,role) tuple is already added
+		filmService.addContributor(film, person2, Role.ACTOR);
+
+		filmService.update(film);
 
 		TVShow tvShow = TVShow.builder().title("Game of Thrones").numSeasons(8).build();
 		tvShowService.addGenre(tvShow, Genre.FANTASY);
