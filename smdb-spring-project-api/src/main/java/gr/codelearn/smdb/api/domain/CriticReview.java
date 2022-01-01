@@ -1,5 +1,7 @@
 package gr.codelearn.smdb.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +13,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,6 +23,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -50,6 +52,7 @@ public class CriticReview extends BaseModel {
 	@Digits(integer = 2, fraction = 1)
 	private Double rating;
 
+	@JsonBackReference("criticReviews")
 	@ManyToOne
 	@JoinColumn(name = "content_id")
 	private Content content;

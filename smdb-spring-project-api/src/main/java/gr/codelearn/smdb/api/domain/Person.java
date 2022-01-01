@@ -1,6 +1,6 @@
 package gr.codelearn.smdb.api.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,8 +8,10 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -45,9 +47,9 @@ public class Person extends BaseModel {
 	@Temporal(TemporalType.DATE)	// YYYY-MM-DD
 	private Date deathDate;
 
-	@JsonIgnore
+	@JsonManagedReference("contentContributions")
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
-	@OneToMany(mappedBy = "person")
+	@OneToMany(mappedBy = "person", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private final Set<ContentContributor> contentContributors = new HashSet<>();
 }
