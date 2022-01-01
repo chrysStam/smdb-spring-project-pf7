@@ -7,5 +7,7 @@ public interface BaseService<T, ID> {
 
 	void update(T clazz);
 
+	T find(ID id);
+
 	List<T> findAll();
 }

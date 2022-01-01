@@ -19,6 +19,6 @@ public class ContentContributorKey implements Serializable {
 	private Long contentId;
 	@Column(name = "person_id")
 	private Long personId;
-//	@Enumerated(EnumType.STRING)	// Not needed since we utilize a custom converter for Role
+
 	private Role role;
 }

@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.math.BigInteger;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -47,8 +48,10 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 
 		/* Add Films & TVShows */
 
-		Film film =	Film.builder().title("Once Upon a Time in... Hollywood").duration(182).motionPictureRating(
-						MotionPictureRating.RESTRICTED).build();
+		Film film =
+				Film.builder().title("Once Upon a Time in... Hollywood").imdbScore(7.6).plotSummary("A faded television actor and his stunt double strive to achieve fame and success in the final years of Hollywood's Golden Age in 1969 Los Angeles.")
+					.releaseYear(2019).language("english").motionPictureRating(MotionPictureRating.RESTRICTED).duration(161).motionPictureRating(
+						MotionPictureRating.RESTRICTED).budget(BigInteger.valueOf(90000000)).boxOffice(BigInteger.valueOf(374565574)).build();
 		filmService.addGenre(film, Genre.DRAMA);
 		filmService.addGenre(film, Genre.COMEDY);
 
