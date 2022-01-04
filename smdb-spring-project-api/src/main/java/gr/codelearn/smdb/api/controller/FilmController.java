@@ -1,11 +1,19 @@
 package gr.codelearn.smdb.api.controller;
 
 import gr.codelearn.smdb.api.domain.Film;
+import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.service.BaseService;
 import gr.codelearn.smdb.api.service.FilmService;
+import gr.codelearn.smdb.api.transfer.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,5 +24,33 @@ public class FilmController extends AbstractController<Film> {
 	@Override
 	protected BaseService<Film, Long> getBaseService() {
 		return filmService;
+	}
+
+	@GetMapping(params = {"t"})
+	public Film find(@RequestParam("t") String title) {
+		return filmService.findByTitle(title);
+	}
+
+	@GetMapping(params = {"genre"})
+	public ResponseEntity<ApiResponse<List<Film>>> find2(@RequestParam("genre") Set<Genre> genre) {
+		return ResponseEntity.ok(ApiResponse.<List<Film>>builder()
+										 .data(filmService.findAllByGenresIn(genre))
+										 .build());
+	}
+
+
+	@GetMapping(path = "top", params = {"num"})
+	public ResponseEntity<ApiResponse<List<Film>>> findTopRatings(@RequestParam("num") Integer num){
+		return ResponseEntity.ok(ApiResponse.<List<Film>>builder()
+											.data(filmService.findTopRatings(num))
+											.build());
+	}
+
+
+	@GetMapping(path= "search", params = {"title"})
+	public ResponseEntity<ApiResponse<List<Film>>> searchByTitle(@RequestParam("title") String title) {
+		return ResponseEntity.ok(ApiResponse.<List<Film>>builder()
+											.data(filmService.searchByTitle(title))
+											.build());
 	}
 }
