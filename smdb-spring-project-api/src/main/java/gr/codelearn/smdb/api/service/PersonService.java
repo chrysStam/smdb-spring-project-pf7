@@ -15,6 +15,6 @@ public interface PersonService extends BaseService<Person, Long> {
 	// List<Film> getFilmContributionsOfPersonById(Long personId);
 	// List<TVShow> getTVShowContributionsOfPersonById(Long personId);
 
-	// List<Content> getContributionsOfPersonByIdByRole(Long personId, Role role);
+	List<Content> getContributionsOfPersonByIdByRole(Long personId, Role role);
 
 }
