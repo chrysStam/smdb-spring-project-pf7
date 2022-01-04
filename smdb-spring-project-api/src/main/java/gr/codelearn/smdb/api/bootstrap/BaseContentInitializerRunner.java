@@ -28,7 +28,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Component
-@Profile("base-content-initializer")
+//@Profile("base-content-initializer")
 @RequiredArgsConstructor
 public class BaseContentInitializerRunner extends AbstractLogComponent implements CommandLineRunner {
 	private final PersonService personService;
