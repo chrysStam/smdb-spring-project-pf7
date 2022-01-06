@@ -71,12 +71,35 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 
 		filmService.update(film);
 
-		// Adding a critic review
-		CriticReview criticReview =
-				CriticReview.builder().author("Theodoros Mystiloglou").body("It was ok.").rating(7.2).build();
-		filmService.addCriticReview(film, criticReview);
 
-		filmService.update(film);
+
+
+
+//		Film film2 =
+//				Film.builder().title("Once Upon a Time in... Hollywood 2").imdbScore(7.6).plotSummary("A faded " +
+//																											 "television actor and his stunt double strive to achieve fame and success in the final years of Hollywood's Golden Age in 1969 Los Angeles.")
+//					.releaseYear(2019).language("english").motionPictureRating(MotionPictureRating.RESTRICTED).duration(161).motionPictureRating(
+//							MotionPictureRating.RESTRICTED).budget(BigInteger.valueOf(90000000)).boxOffice(BigInteger.valueOf(374565574)).build();
+//		filmService.addGenre(film2, Genre.DRAMA);
+//		filmService.addGenre(film2, Genre.COMEDY);
+//
+//		// This will be ignored since genre is already added
+//		filmService.addGenre(film2, Genre.DRAMA);
+//
+//		film2 = filmService.create(film2);
+//
+//		// Now that film's id has been generated, we can populate ContentContributor table with contributors
+//		filmService.addContributor(film2, person1, Role.ACTOR);// A person can have multiple roles
+//
+//
+//
+//		filmService.update(film2);
+//		// Adding a critic review
+//		CriticReview criticReview =
+//				CriticReview.builder().author("Theodoros Mystiloglou").body("It was ok.").rating(7.2).build();
+//		filmService.addCriticReview(film, criticReview);
+//
+//		filmService.update(film2);
 
 		TVShow tvShow = TVShow.builder().title("Game of Thrones").numSeasons(8).build();
 		tvShowService.addGenre(tvShow, Genre.FANTASY);

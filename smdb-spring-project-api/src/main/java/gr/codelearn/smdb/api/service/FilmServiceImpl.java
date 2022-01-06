@@ -2,6 +2,8 @@ package gr.codelearn.smdb.api.service;
 
 import gr.codelearn.smdb.api.domain.Film;
 import gr.codelearn.smdb.api.domain.Genre;
+import gr.codelearn.smdb.api.domain.Person;
+import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.repository.FilmRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -21,10 +23,6 @@ public class FilmServiceImpl extends ContentServiceImpl<Film> implements FilmSer
 		return filmRepository;
 	}
 
-	@Override
-	public List<Film> findAllByGenresIn(final Set<Genre> genre) {
-		return (List<Film>) filmRepository.findAllByGenresIn(genre);
-	}
 
 
 	@Override
@@ -41,4 +39,18 @@ public class FilmServiceImpl extends ContentServiceImpl<Film> implements FilmSer
 	public List<Film> findTopRatings(final Integer num){
 		return filmRepository.findTopRating(PageRequest.of(0, num));
 	}
+
+	public List<Film> findByContributor(final String name,final String surname){
+		return filmRepository.findByContributor(name,surname);
+	}
+
+	public List<Film> findByContributorAndRole(final String name,final String surname,final Role role){
+		return filmRepository.findByContributorAndRole(name,surname,role);
+	}
+
+	@Override
+	public List<Film> findAllByGenresIn(final Set<Genre> genre) {
+		return (List<Film>) filmRepository.findAllByGenresIn(genre);
+	}
+
 }
