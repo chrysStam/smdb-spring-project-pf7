@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CsvExportService {
 
-	List<KeyValue<String,Integer>> exportAll(Writer writer);
+	List<KeyValue<String, String>> exportList();
 
-	KeyValue<String, Integer> exportPeople(Writer writer);
+	void export(Writer writer, String table);
 }

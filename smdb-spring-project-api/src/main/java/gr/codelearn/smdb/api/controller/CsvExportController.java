@@ -6,7 +6,10 @@ import gr.codelearn.smdb.api.transfer.KeyValue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -20,26 +23,22 @@ import java.util.List;
 public class CsvExportController {
 	private final CsvExportService csvExportService;
 
-	@RequestMapping(value = "/all", produces = "text/csv")
-	public ResponseEntity<ApiResponse<List<KeyValue<String, Integer>>>> exportAll(HttpServletResponse servletResponse) {
-		try {
-			servletResponse.addHeader("Content-Disposition", "attachment; filename=\"all.csv\"");
-			return ResponseEntity.ok(ApiResponse.<List<KeyValue<String, Integer>>>builder()
-												.data(csvExportService.exportAll(servletResponse.getWriter())).build());
-		} catch (IOException ex) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to export data", ex);
-		}
+	@RequestMapping("/list")
+	public ResponseEntity<ApiResponse<List<KeyValue<String, String>>>> exportList() {
+		return ResponseEntity.ok(ApiResponse.<List<KeyValue<String, String>>>builder()
+												.data(csvExportService.exportList()).build());
 	}
 
-	@RequestMapping(value = "/people", produces = "text/csv")
-	public ResponseEntity<ApiResponse<KeyValue<String, Integer>>> exportPeople(HttpServletResponse servletResponse) {
+	@RequestMapping(value = "/{table}", produces = "text/csv")
+	public void export(@PathVariable final String table, HttpServletResponse servletResponse) {
 		try {
-			servletResponse.addHeader("Content-Disposition", "attachment; filename=\"people.csv\"");
-			return ResponseEntity.ok(ApiResponse.<KeyValue<String, Integer>>builder()
-												.data(csvExportService.exportPeople(servletResponse.getWriter()))
-												.build());
+			servletResponse.setStatus(HttpServletResponse.SC_CREATED);
+			servletResponse.addHeader("Content-Disposition", "attachment; filename=\"" + table + ".csv\"");
+			csvExportService.export(servletResponse.getWriter(), table);
 		} catch (IOException ex) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to export data", ex);
+			//servletResponse.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);	// Doesn't work as needed
+		} catch (IllegalArgumentException ex) {
+			//servletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST);	// Doesn't work as needed
 		}
 	}
 }
