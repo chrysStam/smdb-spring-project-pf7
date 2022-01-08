@@ -1,5 +1,6 @@
 package gr.codelearn.smdb.api.controller;
 
+import gr.codelearn.smdb.api.domain.Content;
 import gr.codelearn.smdb.api.domain.Film;
 import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.Person;
@@ -42,8 +43,8 @@ public class FilmController extends AbstractController<Film> {
 
 
 	@GetMapping(path = "top", params = {"num"})
-	public ResponseEntity<ApiResponse<List<Film>>> findTopRatings(@RequestParam("num") Integer num){
-		return ResponseEntity.ok(ApiResponse.<List<Film>>builder()
+	public ResponseEntity<ApiResponse<List<Content>>> findTopRatings(@RequestParam("num") Integer num){
+		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 											.data(filmService.findTopRatings(num))
 											.build());
 	}

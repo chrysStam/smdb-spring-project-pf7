@@ -1,5 +1,6 @@
 package gr.codelearn.smdb.api.service;
 
+import gr.codelearn.smdb.api.domain.Content;
 import gr.codelearn.smdb.api.domain.ContentContributor;
 import gr.codelearn.smdb.api.domain.Film;
 import gr.codelearn.smdb.api.domain.Genre;
@@ -20,7 +21,7 @@ public interface FilmService extends ContentService<Film> {
 
 	Film findByTitle(String title);
 	List<Film> searchByTitle(String title);
-	List<Film> findTopRatings(Integer num);
+	List<Content> findTopRatings(Integer num);
 
 	List<Film> findByContributor(String name,String surname);
 	List<Film> findByContributorAndRole(String name,String surname,Role role);
