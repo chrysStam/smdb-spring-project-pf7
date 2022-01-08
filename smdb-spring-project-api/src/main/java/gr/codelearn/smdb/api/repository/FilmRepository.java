@@ -1,5 +1,6 @@
 package gr.codelearn.smdb.api.repository;
 
+import gr.codelearn.smdb.api.domain.Content;
 import gr.codelearn.smdb.api.domain.Film;
 import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.Person;
@@ -22,8 +23,8 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
 
 
 
-	@Query("select DISTINCT f from Film f ORDER BY f.imdbScore DESC ")
-	List<Film> findTopRating(PageRequest pageable);
+	@Query("select DISTINCT f from Content f ORDER BY f.imdbScore DESC ")
+	List<Content> findTopRating(PageRequest pageable);
 
 
 

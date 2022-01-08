@@ -1,5 +1,6 @@
 package gr.codelearn.smdb.api.service;
 
+import gr.codelearn.smdb.api.domain.Content;
 import gr.codelearn.smdb.api.domain.Film;
 import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.Person;
@@ -36,7 +37,7 @@ public class FilmServiceImpl extends ContentServiceImpl<Film> implements FilmSer
 	}
 
 	@Override
-	public List<Film> findTopRatings(final Integer num){
+	public List<Content> findTopRatings(final Integer num){
 		return filmRepository.findTopRating(PageRequest.of(0, num));
 	}
 
