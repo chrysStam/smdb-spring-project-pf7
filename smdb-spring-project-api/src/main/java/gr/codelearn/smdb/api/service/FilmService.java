@@ -20,11 +20,11 @@ public interface FilmService extends ContentService<Film> {
 
 
 	Film findByTitle(String title);
-	List<Film> searchByTitle(String title);
+	List<Content> searchByTitle(String title);
 	List<Content> findTopRatings(Integer num);
 
-	List<Film> findByContributor(String name,String surname);
-	List<Film> findByContributorAndRole(String name,String surname,Role role);
-	List<Film> findAllByGenresIn(Set<Genre> genre);
+	List<Content> findByContributor(String name,String surname);
+	List<Content> findByContributorAndRole(String name,String surname,Role role);
+	List<Content> findAllByGenresIn(Set<Genre> genre);
 
 }
