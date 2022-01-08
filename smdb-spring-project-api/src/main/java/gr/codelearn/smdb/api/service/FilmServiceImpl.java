@@ -32,7 +32,7 @@ public class FilmServiceImpl extends ContentServiceImpl<Film> implements FilmSer
 	}
 
 	@Override
-	public List<Film> searchByTitle(final String title) {
+	public List<Content> searchByTitle(final String title) {
 		return filmRepository.searchByTitle(title);
 	}
 
@@ -41,17 +41,17 @@ public class FilmServiceImpl extends ContentServiceImpl<Film> implements FilmSer
 		return filmRepository.findTopRating(PageRequest.of(0, num));
 	}
 
-	public List<Film> findByContributor(final String name,final String surname){
+	public List<Content> findByContributor(final String name,final String surname){
 		return filmRepository.findByContributor(name,surname);
 	}
 
-	public List<Film> findByContributorAndRole(final String name,final String surname,final Role role){
+	public List<Content> findByContributorAndRole(final String name,final String surname,final Role role){
 		return filmRepository.findByContributorAndRole(name,surname,role);
 	}
 
 	@Override
-	public List<Film> findAllByGenresIn(final Set<Genre> genre) {
-		return (List<Film>) filmRepository.findAllByGenresIn(genre);
+	public List<Content> findAllByGenresIn(final Set<Genre> genre) {
+		return (List<Content>) filmRepository.findAllByGenresIn(genre);
 	}
 
 }

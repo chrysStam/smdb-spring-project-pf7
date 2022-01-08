@@ -35,8 +35,8 @@ public class FilmController extends AbstractController<Film> {
 	}
 
 	@GetMapping(path= "search", params = {"title"})
-	public ResponseEntity<ApiResponse<List<Film>>> searchByTitle(@RequestParam("title") String title) {
-		return ResponseEntity.ok(ApiResponse.<List<Film>>builder()
+	public ResponseEntity<ApiResponse<List<Content>>> searchByTitle(@RequestParam("title") String title) {
+		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 											.data(filmService.searchByTitle(title))
 											.build());
 	}
@@ -53,26 +53,26 @@ public class FilmController extends AbstractController<Film> {
 
 
 	@GetMapping(params = {"name","surname"})
-	public ResponseEntity<ApiResponse<List<Film>>> findByContributor(@RequestParam("name") String name,
+	public ResponseEntity<ApiResponse<List<Content>>> findByContributor(@RequestParam("name") String name,
 																	   @RequestParam("surname") String surname) {
-		return ResponseEntity.ok(ApiResponse.<List<Film>>builder()
+		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 											.data(filmService.findByContributor(name,surname))
 											.build());
 	}
 
 	@GetMapping(params = {"name","surname","role"})
-	public ResponseEntity<ApiResponse<List<Film>>> findByContributorAndRole(@RequestParam("name") String name,
+	public ResponseEntity<ApiResponse<List<Content>>> findByContributorAndRole(@RequestParam("name") String name,
 																	 @RequestParam("surname") String surname,
 																			@RequestParam("role") Role role) {
-		return ResponseEntity.ok(ApiResponse.<List<Film>>builder()
+		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 											.data(filmService.findByContributorAndRole(name,surname,role))
 											.build());
 	}
 
 
 	@GetMapping(params = {"genre"})
-	public ResponseEntity<ApiResponse<List<Film>>> find2(@RequestParam("genre") Set<Genre> genre) {
-		return ResponseEntity.ok(ApiResponse.<List<Film>>builder()
+	public ResponseEntity<ApiResponse<List<Content>>> find2(@RequestParam("genre") Set<Genre> genre) {
+		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 											.data(filmService.findAllByGenresIn(genre))
 											.build());
 	}
