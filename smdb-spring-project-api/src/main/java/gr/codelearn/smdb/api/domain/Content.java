@@ -54,6 +54,7 @@ public class Content extends BaseModel{
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@ElementCollection(fetch = FetchType.EAGER)
+	@Enumerated(EnumType.STRING)
 	private final Set<Genre> genres = new HashSet<>();
 
 	@JsonManagedReference("contentContributors")

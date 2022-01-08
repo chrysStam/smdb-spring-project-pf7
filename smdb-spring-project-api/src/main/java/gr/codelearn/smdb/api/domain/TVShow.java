@@ -30,6 +30,7 @@ import java.util.Set;
 @Table(name = "TV_SHOWS")
 @SequenceGenerator(name = "idGenerator", sequenceName = "TV_SHOWS_SEQ", initialValue = 1, allocationSize = 1)
 public class TVShow extends Content{
+	@Column(name="end_year")
 	private Integer endYear;
 
 	@NotNull
