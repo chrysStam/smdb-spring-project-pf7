@@ -7,6 +7,7 @@ import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.service.BaseService;
 import gr.codelearn.smdb.api.service.ReportService;
 import gr.codelearn.smdb.api.transfer.ApiResponse;
+import gr.codelearn.smdb.api.transfer.NoOfContentPerGenreDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,4 +68,10 @@ public class ReportController {
 											.build());
 	}
 
+	@GetMapping(path = "genres/num")
+	public ResponseEntity<ApiResponse<List<NoOfContentPerGenreDto>>> getNoOfContentPerGenre() {
+		return ResponseEntity.ok(ApiResponse.<List<NoOfContentPerGenreDto>>builder()
+											.data(reportService.getNoOfContentPerGenre())
+											.build());
+	}
 }

@@ -4,6 +4,7 @@ import gr.codelearn.smdb.api.domain.Content;
 import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.Person;
 import gr.codelearn.smdb.api.domain.Role;
+import gr.codelearn.smdb.api.transfer.NoOfContentPerGenreDto;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,5 +20,5 @@ public interface ReportService {
 	List<Content> searchByTitle(String title);
 	List<Content> getByContributorByName(String name,String surname);
 	List<Content> getByContributorByNameAndRole(String name, String surname, Role role);
-
+	List<NoOfContentPerGenreDto> getNoOfContentPerGenre();
 }

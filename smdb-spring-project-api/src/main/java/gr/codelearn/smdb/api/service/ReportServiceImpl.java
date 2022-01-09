@@ -7,6 +7,7 @@ import gr.codelearn.smdb.api.domain.Person;
 import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.repository.FilmRepository;
 import gr.codelearn.smdb.api.repository.ReportRepository;
+import gr.codelearn.smdb.api.transfer.NoOfContentPerGenreDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -45,5 +46,8 @@ public class ReportServiceImpl implements ReportService {
 		return (List<Content>) reportRepository.findAllByGenresContaining(genre);
 	}
 
+	public List<NoOfContentPerGenreDto> getNoOfContentPerGenre(){
+		return reportRepository.findNoOfContentPerGenre();
+	}
 }
 
