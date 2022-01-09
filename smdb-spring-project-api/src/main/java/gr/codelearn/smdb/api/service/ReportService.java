@@ -19,8 +19,8 @@ public interface ReportService {
 	List<Content> searchByTitle(String title);
 	List<Content> findTopRatings(Integer num);
 
-	List<Content> findByContributor(String name,String surname);
-	List<Content> findByContributorAndRole(String name, String surname, Role role);
+	List<Content> getByContributorByName(String name,String surname);
+	List<Content> getByContributorByNameAndRole(String name, String surname, Role role);
 	List<Content> findAllByGenresIn(Set<Genre> genre);
 
 
