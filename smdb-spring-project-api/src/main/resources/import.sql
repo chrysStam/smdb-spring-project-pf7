@@ -63,5 +63,21 @@ insert into CONTENT_GENRES (content_id, genres) values (18, 'HISTORICAL');
 insert into CONTENT_GENRES (content_id, genres) values (19, 'ANIMATION');
 insert into CONTENT_GENRES (content_id, genres) values (20, 'MYSTERY');
 
-
+insert into people (id, birthdate, deathdate, name, surname) values (4, '1940-02-10', '2011-04-05', 'Reid', 'Cossum');
+insert into people (id, birthdate, deathdate, name, surname) values (5, '1993-01-01', null, 'Tyrus', 'Stoile');
+insert into people (id, birthdate, deathdate, name, surname) values (6, '1952-05-28', '2001-09-01', 'Valida', 'Kubczak');
+insert into people (id, birthdate, deathdate, name, surname) values (7, '2000-02-15', null, 'Gino', 'Babe');
+insert into people (id, birthdate, deathdate, name, surname) values (8, '1978-07-25', '2016-12-30', 'Chicky', 'Straw');
+insert into people (id, birthdate, deathdate, name, surname) values (9, '1977-09-16', null, 'Lesley', 'Omrod');
+insert into people (id, birthdate, deathdate, name, surname) values (10, '1962-03-19', null, 'Brion', 'Autry');
+insert into people (id, birthdate, deathdate, name, surname) values (11, '1997-12-07', null, 'Urbain', 'Dunsmore');
+insert into people (id, birthdate, deathdate, name, surname) values (12, '1985-08-16', null, 'Denice', 'Seeking');
+insert into people (id, birthdate, deathdate, name, surname) values (13, '1986-03-06', null, 'Halette', 'Foden');
+insert into people (id, birthdate, deathdate, name, surname) values (14, '1962-11-19', null, 'Gabbie', 'Durward');
+insert into people (id, birthdate, deathdate, name, surname) values (15, '1963-11-19', null, 'Stefa', 'Baylis');
+insert into people (id, birthdate, deathdate, name, surname) values (16, '1962-08-06', '2014-05-17', 'Dickie', 'Smithyman');
+insert into people (id, birthdate, deathdate, name, surname) values (17, '1996-08-30', null, 'Maury', 'Fogarty');
+insert into people (id, birthdate, deathdate, name, surname) values (18, '1999-10-22', null, 'Nixie', 'Scyner');
+insert into people (id, birthdate, deathdate, name, surname) values (19, '1974-03-02', null, 'Viva', 'Fairbourn');
+insert into people (id, birthdate, deathdate, name, surname) values (20, '1965-03-21', '2019-06-24', 'Carlotta', 'Grieg');
 

@@ -10,6 +10,7 @@ import gr.codelearn.smdb.api.transfer.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,13 +42,11 @@ public class ReportController {
 	}
 
 
-
-
 	@GetMapping(params = {"name","surname"})
 	public ResponseEntity<ApiResponse<List<Content>>> findByContributor(@RequestParam("name") String name,
 																		@RequestParam("surname") String surname) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(reportService.findByContributor(name,surname))
+											.data(reportService.getByContributorByName(name,surname))
 											.build());
 	}
 
@@ -56,7 +55,7 @@ public class ReportController {
 																			   @RequestParam("surname") String surname,
 																			   @RequestParam("role") Role role) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(reportService.findByContributorAndRole(name,surname,role))
+											.data(reportService.getByContributorByNameAndRole(name,surname,role))
 											.build());
 	}
 

@@ -17,8 +17,10 @@ public enum Genre {
 	DRAMA,
 	FANTASY,
 	HISTORICAL,
+	DOCUMENTARY,
+	MYSTERY,
+	MUSICAL,
 	WESTERN,
 	OTHER;
 
-//	private final String name;
 }

@@ -34,12 +34,12 @@ public class ReportServiceImpl implements ReportService {
 		return reportRepository.findTopRating(PageRequest.of(0, num));
 	}
 
-	public List<Content> findByContributor(final String name,final String surname){
-		return reportRepository.findByContributor(name,surname);
+	public List<Content> getByContributorByName(final String name,final String surname){
+		return reportRepository.findByContributorByName(name,surname);
 	}
 
-	public List<Content> findByContributorAndRole(final String name,final String surname,final Role role){
-		return reportRepository.findByContributorAndRole(name,surname,role);
+	public List<Content> getByContributorByNameAndRole(final String name,final String surname,final Role role){
+		return reportRepository.findByContributorByNameAndRole(name,surname,role);
 	}
 
 	@Override

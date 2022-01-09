@@ -21,22 +21,22 @@ public interface ReportRepository extends JpaRepository<Content, Long> {
 	@Query("select DISTINCT f from Content f WHERE lower(f.title) LIKE %:title% ")
 	List<Content> searchByTitle(String title);
 
-
-
-	@Query("select DISTINCT f from Content f ORDER BY f.imdbScore DESC ")
+//	 Report 1: Return the top X high-rated content.
+	@Query("select DISTINCT f from Content f ORDER BY f.imdbScore DESC")
 	List<Content> findTopRating(PageRequest pageable);
 
-
-
+//	Report 2: Return all content associated with a given individual regardless of hir/her contributing role. (BY NAME)
 	@Query("select DISTINCT f from Content f JOIN f.contentContributors c JOIN c.person p where p.id =(select " +
 			"DISTINCT p" +
 			".id from Person p WHERE p.name = :name and p.surname=:surname)")
-	List<Content> findByContributor(String name,String surname);
+	List<Content> findByContributorByName(String name,String surname);
 
+//	Report 3: Return all content associated with a given individual for a given contributing role. (BY NAME)
 	@Query("select DISTINCT f from Content f JOIN f.contentContributors c JOIN c.key k JOIN c.person p where p.id =" +
 			"(select DISTINCT p.id from Person p WHERE p.name = :name and p.surname=:surname) AND (k.role=:role) ")
-	List<Content> findByContributorAndRole(String name, String surname, Role role);
+	List<Content> findByContributorByNameAndRole(String name, String surname, Role role);
 
+//	Report 4: Return all content for a given genre
 	List<Content> findAllByGenresIn(Set<Genre> genre);
 
 	@Query("SELECT count(c) FROM Content c")
