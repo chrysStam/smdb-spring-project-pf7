@@ -35,15 +35,15 @@ public class ReportController {
 
 
 	@GetMapping(path = "top", params = {"num"})
-	public ResponseEntity<ApiResponse<List<Content>>> findTopRatings(@RequestParam("num") Integer num){
+	public ResponseEntity<ApiResponse<List<Content>>> getTopXHighIMDBScore(@RequestParam("num") Integer num){
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(reportService.findTopRatings(num))
+											.data(reportService.getTopXHighIMDBScore(num))
 											.build());
 	}
 
 
 	@GetMapping(params = {"name","surname"})
-	public ResponseEntity<ApiResponse<List<Content>>> findByContributorByName(@RequestParam("name") String name,
+	public ResponseEntity<ApiResponse<List<Content>>> getByContributorByName(@RequestParam("name") String name,
 																		@RequestParam("surname") String surname) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 											.data(reportService.getByContributorByName(name,surname))
@@ -51,7 +51,7 @@ public class ReportController {
 	}
 
 	@GetMapping(params = {"name","surname","role"})
-	public ResponseEntity<ApiResponse<List<Content>>> findByContributorByNameAndRole(@RequestParam("name") String name,
+	public ResponseEntity<ApiResponse<List<Content>>> getByContributorByNameAndRole(@RequestParam("name") String name,
 																			   @RequestParam("surname") String surname,
 																			   @RequestParam("role") Role role) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
@@ -60,18 +60,11 @@ public class ReportController {
 	}
 
 
-	@GetMapping(params = {"genre"})
-	public ResponseEntity<ApiResponse<List<Content>>> find2(@RequestParam("genre") Set<Genre> genre) {
+	@GetMapping(path = "contents", params = {"genre"})
+	public ResponseEntity<ApiResponse<List<Content>>> find2(@RequestParam("genre") Genre genre) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(reportService.findAllByGenresIn(genre))
+											.data(reportService.getAllContentByGenre(genre))
 											.build());
 	}
 
-
-	@GetMapping(path = "native")
-	public ResponseEntity<ApiResponse<Integer>> findNative(){
-		return ResponseEntity.ok(ApiResponse.<Integer>builder()
-											.data(reportService.findNative())
-											.build());
-	}
 }
