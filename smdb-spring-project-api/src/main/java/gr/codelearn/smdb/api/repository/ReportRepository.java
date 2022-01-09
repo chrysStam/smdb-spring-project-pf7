@@ -6,11 +6,13 @@ import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.Person;
 import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.domain.TVShow;
+import gr.codelearn.smdb.api.transfer.NoOfContentPerGenreDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -38,5 +40,9 @@ public interface ReportRepository extends JpaRepository<Content, Long> {
 
 //	Report 4: Return all content for a given genre
 	List<Content> findAllByGenresContaining(Genre genre);
+
+//	Report 5: Return the number of shows per genre
+	@Query(value="SELECT genres, count(content_id) as number FROM CONTENT_GENRES group by genres" , nativeQuery = true)
+	List<NoOfContentPerGenreDto> findNoOfContentPerGenre();
 
 }
