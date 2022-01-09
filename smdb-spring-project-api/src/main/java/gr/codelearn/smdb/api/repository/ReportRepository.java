@@ -37,8 +37,6 @@ public interface ReportRepository extends JpaRepository<Content, Long> {
 	List<Content> findByContributorByNameAndRole(String name, String surname, Role role);
 
 //	Report 4: Return all content for a given genre
-	List<Content> findAllByGenresIn(Set<Genre> genre);
+	List<Content> findAllByGenresContaining(Genre genre);
 
-	@Query("SELECT count(c) FROM Content c")
-	Integer findNative();
 }

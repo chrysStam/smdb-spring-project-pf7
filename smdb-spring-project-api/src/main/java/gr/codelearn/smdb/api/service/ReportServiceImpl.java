@@ -29,9 +29,8 @@ public class ReportServiceImpl implements ReportService {
 		return reportRepository.searchByTitle(title);
 	}
 
-	@Override
-	public List<Content> findTopRatings(final Integer num){
-		return reportRepository.findTopRating(PageRequest.of(0, num));
+	public List<Content> getTopXHighIMDBScore(final Integer top){
+		return reportRepository.findTopRating(PageRequest.of(0, top));
 	}
 
 	public List<Content> getByContributorByName(final String name,final String surname){
@@ -42,14 +41,9 @@ public class ReportServiceImpl implements ReportService {
 		return reportRepository.findByContributorByNameAndRole(name,surname,role);
 	}
 
-	@Override
-	public List<Content> findAllByGenresIn(final Set<Genre> genre) {
-		return (List<Content>) reportRepository.findAllByGenresIn(genre);
+	public List<Content> getAllContentByGenre(final Genre genre) {
+		return (List<Content>) reportRepository.findAllByGenresContaining(genre);
 	}
 
-	@Override
-	public Integer findNative(){
-		return reportRepository.findNative();
-	}
 }
 
