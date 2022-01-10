@@ -56,7 +56,7 @@ public class FilmController extends AbstractController<Film> {
 	public ResponseEntity<ApiResponse<List<Content>>> findByContributor(@RequestParam("name") String name,
 																	   @RequestParam("surname") String surname) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(filmService.findByContributor(name,surname))
+											.data(filmService.findByContributorByFullName(name,surname))
 											.build());
 	}
 
@@ -65,7 +65,7 @@ public class FilmController extends AbstractController<Film> {
 																	 @RequestParam("surname") String surname,
 																			@RequestParam("role") Role role) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(filmService.findByContributorAndRole(name,surname,role))
+											.data(filmService.findByContributorAndRoleByFullName(name,surname,role))
 											.build());
 	}
 

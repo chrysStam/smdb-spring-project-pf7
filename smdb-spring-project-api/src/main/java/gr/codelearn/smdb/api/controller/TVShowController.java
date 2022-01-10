@@ -55,16 +55,16 @@ public class TVShowController extends AbstractController<TVShow> {
 	public ResponseEntity<ApiResponse<List<TVShow>>> findByContributor(@RequestParam("name") String name,
 																	 @RequestParam("surname") String surname) {
 		return ResponseEntity.ok(ApiResponse.<List<TVShow>>builder()
-											.data(tvShowService.findByContributor(name,surname))
+											.data(tvShowService.findByContributorByFullName(name,surname))
 											.build());
 	}
 
 	@GetMapping(params = {"name","surname","role"})
-	public ResponseEntity<ApiResponse<List<TVShow>>> findByContributorAndRole(@RequestParam("name") String name,
+	public ResponseEntity<ApiResponse<List<TVShow>>> findByContributorAndRoleFullName(@RequestParam("name") String name,
 																			@RequestParam("surname") String surname,
 																			@RequestParam("role") Role role) {
 		return ResponseEntity.ok(ApiResponse.<List<TVShow>>builder()
-											.data(tvShowService.findByContributorAndRole(name,surname,role))
+											.data(tvShowService.findByContributorAndRoleFullName(name,surname,role))
 											.build());
 	}
 

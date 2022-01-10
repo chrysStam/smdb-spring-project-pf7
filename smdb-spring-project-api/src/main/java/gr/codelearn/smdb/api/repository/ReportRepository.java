@@ -28,12 +28,12 @@ public interface ReportRepository extends JpaRepository<Content, Long> {
 	@Query("select DISTINCT f from Content f JOIN f.contentContributors c JOIN c.person p where p.id =(select " +
 			"DISTINCT p" +
 			".id from Person p WHERE p.name = :name and p.surname=:surname)")
-	List<Content> findByContributorByName(String name,String surname);
+	List<Content> findByContributorByFullName(String name,String surname);
 
 //	Report 3: Return all content associated with a given individual for a given contributing role. (BY NAME)
 	@Query("select DISTINCT f from Content f JOIN f.contentContributors c JOIN c.key k JOIN c.person p where p.id =" +
 			"(select DISTINCT p.id from Person p WHERE p.name = :name and p.surname=:surname) AND (k.role=:role) ")
-	List<Content> findByContributorByNameAndRole(String name, String surname, Role role);
+	List<Content> findByContributorByFullNameAndRole(String name, String surname, Role role);
 
 //	Report 4: Return all content for a given genre
 	List<Content> findAllByGenresContaining(Genre genre);
