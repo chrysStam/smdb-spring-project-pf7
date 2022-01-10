@@ -23,8 +23,8 @@ public interface FilmService extends ContentService<Film> {
 	List<Content> searchByTitle(String title);
 	List<Content> findTopRatings(Integer num);
 
-	List<Content> findByContributor(String name,String surname);
-	List<Content> findByContributorAndRole(String name,String surname,Role role);
+	List<Content> findByContributorByFullName(String name,String surname);
+	List<Content> findByContributorAndRoleByFullName(String name,String surname,Role role);
 	List<Content> findAllByGenresIn(Set<Genre> genre);
 
 }

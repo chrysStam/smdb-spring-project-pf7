@@ -41,12 +41,12 @@ public class FilmServiceImpl extends ContentServiceImpl<Film> implements FilmSer
 		return filmRepository.findTopRating(PageRequest.of(0, num));
 	}
 
-	public List<Content> findByContributor(final String name,final String surname){
-		return filmRepository.findByContributor(name,surname);
+	public List<Content> findByContributorByFullName(final String name,final String surname){
+		return filmRepository.findByContributorByFullName(name,surname);
 	}
 
-	public List<Content> findByContributorAndRole(final String name,final String surname,final Role role){
-		return filmRepository.findByContributorAndRole(name,surname,role);
+	public List<Content> findByContributorAndRoleByFullName(final String name,final String surname,final Role role){
+		return filmRepository.findByContributorAndRoleByFullName(name,surname,role);
 	}
 
 	@Override

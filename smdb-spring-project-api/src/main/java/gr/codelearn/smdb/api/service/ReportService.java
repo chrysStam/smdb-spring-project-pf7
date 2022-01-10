@@ -12,8 +12,8 @@ import java.util.List;
 public interface ReportService {
 
 	List<Content> getTopXHighIMDBScore(Integer top); // List of relevant Films and TVShows (only relevant attributes?)
-	List<Content> getByContributorByName(String name,String surname);
-	List<Content> getByContributorByNameAndRole(String name, String surname, Role role);
+	List<Content> getByContributorByFullName(String name,String surname);
+	List<Content> getByContributorByFullNameAndRole(String name, String surname, Role role);
 	List<Content> getAllContentByGenre(Genre genre);
 	List<NoOfContentPerGenreDto> getNoOfContentPerGenre();
 	List<YearGenresStat> getNoOfContentPerYearPerGenre();

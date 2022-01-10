@@ -43,10 +43,10 @@ public class ReportController {
 
 
 	@GetMapping(params = {"name","surname"})
-	public ResponseEntity<ApiResponse<List<Content>>> getByContributorByName(@RequestParam("name") String name,
+	public ResponseEntity<ApiResponse<List<Content>>> getByContributorByFullName(@RequestParam("name") String name,
 																		@RequestParam("surname") String surname) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(reportService.getByContributorByName(name,surname))
+											.data(reportService.getByContributorByFullName(name,surname))
 											.build());
 	}
 
@@ -55,7 +55,7 @@ public class ReportController {
 																			   @RequestParam("surname") String surname,
 																			   @RequestParam("role") Role role) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(reportService.getByContributorByNameAndRole(name,surname,role))
+											.data(reportService.getByContributorByFullNameAndRole(name,surname,role))
 											.build());
 	}
 
