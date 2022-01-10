@@ -41,6 +41,7 @@ public class Content extends BaseModel{
 	@Column(length = 4096, name="plot_summary")
 	private String plotSummary;
 
+	@NotNull
 	@Column(name="release_year")
 	@Min(1878)
 	private Integer releaseYear;

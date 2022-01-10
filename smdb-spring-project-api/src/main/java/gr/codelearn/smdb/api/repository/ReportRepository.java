@@ -3,18 +3,15 @@ package gr.codelearn.smdb.api.repository;
 import gr.codelearn.smdb.api.domain.Content;
 import gr.codelearn.smdb.api.domain.Film;
 import gr.codelearn.smdb.api.domain.Genre;
-import gr.codelearn.smdb.api.domain.Person;
 import gr.codelearn.smdb.api.domain.Role;
-import gr.codelearn.smdb.api.domain.TVShow;
+import gr.codelearn.smdb.api.transfer.ContentOfContributorByIdByGenreDto;
 import gr.codelearn.smdb.api.transfer.NoOfContentPerGenreDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public interface ReportRepository extends JpaRepository<Content, Long> {
@@ -44,5 +41,14 @@ public interface ReportRepository extends JpaRepository<Content, Long> {
 //	Report 5: Return the number of shows per genre
 	@Query(value="SELECT genres, count(content_id) as number FROM CONTENT_GENRES group by genres" , nativeQuery = true)
 	List<NoOfContentPerGenreDto> findNoOfContentPerGenre();
+
+//	Report 6: Return the numbers of shows per year per genre
+	@Query("select c.releaseYear from Content  c group by c.releaseYear")
+	List<Integer> findYears();
+
+	@Query(value="SELECT cg.genres, count(c.id) as number " +
+			"FROM CONTENT_GENRES as cg inner join contents as c on cg.content_id = c.id " +
+			"where release_year= ?1 group by genres", nativeQuery = true)
+	List<NoOfContentPerGenreDto> findNoOfContentByReleaseYearPerGenre(Integer year);
 
 }

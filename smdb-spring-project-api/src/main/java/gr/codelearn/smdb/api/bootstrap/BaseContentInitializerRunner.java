@@ -14,17 +14,13 @@ import gr.codelearn.smdb.api.service.TVShowService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.aspectj.weaver.ast.Call;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.math.BigInteger;
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.List;
 
 @Component
@@ -72,36 +68,7 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 		filmService.update(film);
 
 
-
-
-
-//		Film film2 =
-//				Film.builder().title("Once Upon a Time in... Hollywood 2").imdbScore(7.6).plotSummary("A faded " +
-//																											 "television actor and his stunt double strive to achieve fame and success in the final years of Hollywood's Golden Age in 1969 Los Angeles.")
-//					.releaseYear(2019).language("english").motionPictureRating(MotionPictureRating.RESTRICTED).duration(161).motionPictureRating(
-//							MotionPictureRating.RESTRICTED).budget(BigInteger.valueOf(90000000)).boxOffice(BigInteger.valueOf(374565574)).build();
-//		filmService.addGenre(film2, Genre.DRAMA);
-//		filmService.addGenre(film2, Genre.COMEDY);
-//
-//		// This will be ignored since genre is already added
-//		filmService.addGenre(film2, Genre.DRAMA);
-//
-//		film2 = filmService.create(film2);
-//
-//		// Now that film's id has been generated, we can populate ContentContributor table with contributors
-//		filmService.addContributor(film2, person1, Role.ACTOR);// A person can have multiple roles
-//
-//
-//
-//		filmService.update(film2);
-//		// Adding a critic review
-//		CriticReview criticReview =
-//				CriticReview.builder().author("Theodoros Mystiloglou").body("It was ok.").rating(7.2).build();
-//		filmService.addCriticReview(film, criticReview);
-//
-//		filmService.update(film2);
-
-		TVShow tvShow = TVShow.builder().title("Game of Thrones").numSeasons(8).build();
+		TVShow tvShow = TVShow.builder().title("Game of Thrones").releaseYear(2005).numSeasons(8).build();
 		tvShowService.addGenre(tvShow, Genre.FANTASY);
 		tvShowService.addGenre(tvShow, Genre.ACTION);
 		tvShowService.create(tvShow);
