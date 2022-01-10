@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class YearGenresStats {
+public class YearGenresStat {
 	Integer year;
 	List<NoOfContentPerGenreDto> stats;
 

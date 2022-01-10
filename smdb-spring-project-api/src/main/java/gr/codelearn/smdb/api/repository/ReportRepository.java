@@ -51,4 +51,13 @@ public interface ReportRepository extends JpaRepository<Content, Long> {
 			"where release_year= ?1 group by genres", nativeQuery = true)
 	List<NoOfContentPerGenreDto> findNoOfContentByReleaseYearPerGenre(Integer year);
 
+//	Report 7: Return all content associated with a given individual organized per genre
+	@Query(value="SELECT foo.*, cc.role, cc.person_id as personId "+
+				   "FROM  ( SELECT c.id as contentId, c.imdb_score as imdbScore, c.language, c.motion_picture_rating as MPR, " +
+							" c.plot_summary as plotSummary, c.release_year as releaseYear, c.title, cg.genres " +
+							"FROM CONTENT_GENRES AS CG INNER JOIN CONTENTS AS C ON C.ID = CG.CONTENT_ID) AS FOO " +
+							"INNER JOIN CONTENT_CONTRIBUTORS AS CC ON FOO.contentId = CC.CONTENT_ID " +
+					"WHERE person_id = ?1 and genres = ?2", nativeQuery = true)
+	List<ContentOfContributorByIdByGenreDto> findContentOfContributorByIdByGenre(Long id, String genre);
+
 }

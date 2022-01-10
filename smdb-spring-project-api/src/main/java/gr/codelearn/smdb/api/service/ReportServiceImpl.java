@@ -2,9 +2,11 @@ package gr.codelearn.smdb.api.service;
 
 import gr.codelearn.smdb.api.domain.Content;
 import gr.codelearn.smdb.api.domain.Genre;
-import gr.codelearn.smdb.api.helpers.YearGenresStats;
+import gr.codelearn.smdb.api.helpers.ContributorGenre;
+import gr.codelearn.smdb.api.helpers.YearGenresStat;
 import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.repository.ReportRepository;
+import gr.codelearn.smdb.api.transfer.ContentOfContributorByIdByGenreDto;
 import gr.codelearn.smdb.api.transfer.NoOfContentPerGenreDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +14,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 
@@ -51,18 +54,43 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 
-	public List<YearGenresStats> getNoOfContentPerYearPerGenre()  {
+	public List<YearGenresStat> getNoOfContentPerYearPerGenre()  {
 
 		List<Integer> years = reportRepository.findYears();
-		List<YearGenresStats> results = new ArrayList<>();
+		List<YearGenresStat> results = new ArrayList<>();
 
 		for (Integer y : years) {
-			YearGenresStats elem = new YearGenresStats();
+			YearGenresStat elem = new YearGenresStat();
 			elem.setStats(reportRepository.findNoOfContentByReleaseYearPerGenre(y));
 			elem.setYear(y);
 			results.add(elem);
 		}
 		return results;
+	}
+
+	public List<ContributorGenre> getAllContentOfContributorByIdPerGenres(Long personId){
+
+//		HashMap<Genre, List<ContentOfContributorByIdByGenreDto>> hash_map = new HashMap<>();
+		List<ContributorGenre> results = new ArrayList<>();
+
+		List<ContentOfContributorByIdByGenreDto> tmp;
+
+		for (Genre genre : EnumSet.allOf(Genre.class)) {
+			System.out.println("============================!!!!!!!!!!===================================");
+			System.out.println(genre);
+			ContributorGenre elem = new ContributorGenre();
+			tmp = reportRepository.findContentOfContributorByIdByGenre(personId, genre.name());
+			System.out.println("============================!!!!!!!!!!=========#################### ====");
+			System.out.println(tmp);
+			if (!tmp.isEmpty()){
+				elem.setGenre(genre);
+				elem.setInfo(reportRepository.findContentOfContributorByIdByGenre(personId, genre.name()));
+				results.add(elem);
+			}
+		}
+
+		return results;
+
 	}
 }
 

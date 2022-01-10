@@ -6,10 +6,10 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum Role {
-	ACTOR("actor"),
-	PRODUCER("producer"),
-	DIRECTOR("director"),
-	WRITER("writer");
+	ACTOR,
+	PRODUCER,
+	DIRECTOR,
+	WRITER;
 
-	private final String name;
+//	private final String name;
 }
