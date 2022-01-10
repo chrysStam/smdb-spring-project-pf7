@@ -67,6 +67,12 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 		CriticReview criticReview =
 				CriticReview.builder().author("Theodoros Mystiloglou").body("It was ok.").rating(7.2).build();
 		filmService.addCriticReview(film, criticReview);
+		criticReview =
+				CriticReview.builder().author("Mike Daskalantonakis").body("I did not enjoy it.").rating(5.4).build();
+		filmService.addCriticReview(film, criticReview);
+		criticReview =
+				CriticReview.builder().author("Dimitra Koumparaki").body("Amazing!").rating(9.1).build();
+		filmService.addCriticReview(film, criticReview);
 
 		filmService.update(film);
 

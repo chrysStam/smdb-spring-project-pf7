@@ -42,7 +42,7 @@ public class Content extends BaseModel{
 	private String plotSummary;
 
 	@Column(name="release_year")
-	@Min(1878)
+	@Min(1878)	// Year of first motion picture content ever made
 	private Integer releaseYear;
 
 	@Column(length = 30)
