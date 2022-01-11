@@ -30,7 +30,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "CRITIC_REVIEWS")
-@SequenceGenerator(name = "idGenerator", sequenceName = "CRITIC_REVIEWS_SEQ", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "idGenerator", sequenceName = "CRITIC_REVIEWS_SEQ", initialValue = 101, allocationSize = 1)
 public class CriticReview extends BaseModel {
 	@NotNull
 	@Column(length = 50)

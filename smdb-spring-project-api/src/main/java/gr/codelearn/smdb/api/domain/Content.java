@@ -25,7 +25,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Entity()
 @Table(name = "CONTENTS")
-@SequenceGenerator(name = "idGenerator", sequenceName = "CONTENTS_SEQ", initialValue = 21, allocationSize = 1)
+@SequenceGenerator(name = "idGenerator", sequenceName = "CONTENTS_SEQ", initialValue = 51, allocationSize = 1)
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Content extends BaseModel{
 	@NotNull

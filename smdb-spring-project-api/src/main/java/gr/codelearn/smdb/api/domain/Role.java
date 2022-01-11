@@ -11,5 +11,4 @@ public enum Role {
 	DIRECTOR,
 	WRITER;
 
-//	private final String name;
 }
