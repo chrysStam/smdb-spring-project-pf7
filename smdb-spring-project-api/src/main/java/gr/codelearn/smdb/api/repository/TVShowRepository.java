@@ -13,9 +13,6 @@ import java.util.Set;
 @Repository
 public interface TVShowRepository extends ContentRepository<TVShow> {
 
-	@Query("select DISTINCT s from TVShow s WHERE lower(s.title) LIKE %:title% ")
-	List<TVShow> searchByTitle(String title);
-
 	@Query("select DISTINCT s from TVShow s ORDER BY s.imdbScore DESC ")
 	List<TVShow> findTopRating(PageRequest pageable);
 

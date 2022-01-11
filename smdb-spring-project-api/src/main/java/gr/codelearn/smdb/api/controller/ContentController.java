@@ -19,8 +19,15 @@ public abstract class ContentController<T extends Content> extends AbstractContr
 	@Override
 	protected abstract ContentService<T> getBaseService();
 
-	@GetMapping(params = {"t"})
-	public Callable<ResponseEntity<ApiResponse<List<T>>>> findByTitle(@RequestParam("t") String title) {
+	@GetMapping(params = {"title"})
+	public Callable<ResponseEntity<ApiResponse<List<T>>>> findByTitle(@RequestParam("title") String title) {
 		return () -> ResponseEntity.ok(ApiResponse.<List<T>>builder().data(getBaseService().findByTitle(title)).build());
+	}
+
+	@GetMapping(path= "search", params = {"title"})
+	public Callable<ResponseEntity<ApiResponse<List<T>>>> findByTitleContainingIgnoreCase(@RequestParam("title") String title) {
+		return () -> ResponseEntity.ok(ApiResponse.<List<T>>builder()
+											.data(getBaseService().findByTitleContainingIgnoreCase(title))
+											.build());
 	}
 }

@@ -80,4 +80,9 @@ public abstract class ContentServiceImpl<T extends Content> extends BaseServiceI
 	public List<T> findByTitle(final String title) {
 		return getRepository().findByTitle(title);
 	}
+
+	@Override
+	public List<T> findByTitleContainingIgnoreCase(final String title) {
+		return getRepository().findByTitleContainingIgnoreCase(title);
+	}
 }

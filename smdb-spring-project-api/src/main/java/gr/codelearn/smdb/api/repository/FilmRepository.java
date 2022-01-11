@@ -14,9 +14,6 @@ import java.util.Set;
 @Repository
 public interface FilmRepository extends ContentRepository<Film> {
 
-	@Query("select DISTINCT f from Content f WHERE lower(f.title) LIKE %:title% ")
-	List<Content> searchByTitle(String title);
-
 	@Query("select DISTINCT f from Content f ORDER BY f.imdbScore DESC ")
 	List<Content> findTopRating(PageRequest pageable);
 

@@ -10,8 +10,6 @@ import java.util.Set;
 
 public interface FilmService extends ContentService<Film> {
 
-	List<Content> searchByTitle(String title);
-
 	List<Content> findTopRatings(Integer num);
 
 	List<Content> findByContributorByFullName(String name, String surname);

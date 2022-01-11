@@ -30,47 +30,32 @@ public class FilmController extends ContentController<Film> {
 		return filmService;
 	}
 
-	@GetMapping(path= "search", params = {"title"})
-	public ResponseEntity<ApiResponse<List<Content>>> searchByTitle(@RequestParam("title") String title) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(filmService.searchByTitle(title))
-											.build());
-	}
-
-
 	@GetMapping(path = "top", params = {"num"})
-	public ResponseEntity<ApiResponse<List<Content>>> findTopRatings(@RequestParam("num") Integer num){
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(filmService.findTopRatings(num))
-											.build());
+	public ResponseEntity<ApiResponse<List<Content>>> findTopRatings(@RequestParam("num") Integer num) {
+		return ResponseEntity.ok(ApiResponse.<List<Content>>builder().data(filmService.findTopRatings(num)).build());
 	}
 
-
-
-
-	@GetMapping(params = {"name","surname"})
+	@GetMapping(params = {"name", "surname"})
 	public ResponseEntity<ApiResponse<List<Content>>> findByContributor(@RequestParam("name") String name,
-																	   @RequestParam("surname") String surname) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(filmService.findByContributorByFullName(name,surname))
-											.build());
+																		@RequestParam("surname") String surname) {
+		return ResponseEntity.ok(
+				ApiResponse.<List<Content>>builder().data(filmService.findByContributorByFullName(name, surname))
+						   .build());
 	}
 
-	@GetMapping(params = {"name","surname","role"})
+	@GetMapping(params = {"name", "surname", "role"})
 	public ResponseEntity<ApiResponse<List<Content>>> findByContributorAndRole(@RequestParam("name") String name,
-																	 @RequestParam("surname") String surname,
-																			@RequestParam("role") Role role) {
+																			   @RequestParam("surname") String surname,
+																			   @RequestParam("role") Role role) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(filmService.findByContributorAndRoleByFullName(name,surname,role))
+											.data(filmService.findByContributorAndRoleByFullName(name, surname, role))
 											.build());
 	}
-
 
 	@GetMapping(params = {"genre"})
 	public ResponseEntity<ApiResponse<List<Content>>> find2(@RequestParam("genre") Set<Genre> genre) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(filmService.findAllByGenresIn(genre))
-											.build());
+		return ResponseEntity.ok(
+				ApiResponse.<List<Content>>builder().data(filmService.findAllByGenresIn(genre)).build());
 	}
 
 }

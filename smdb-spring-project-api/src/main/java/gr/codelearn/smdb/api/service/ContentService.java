@@ -16,4 +16,6 @@ public interface ContentService<T extends Content> extends BaseService<T, Long> 
 	void addCriticReview(T content, CriticReview criticReview);
 
 	List<T> findByTitle(String title);
+
+	List<T> findByTitleContainingIgnoreCase(String title);
 }

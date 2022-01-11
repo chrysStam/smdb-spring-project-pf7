@@ -9,8 +9,6 @@ import java.util.Set;
 
 public interface TVShowService extends ContentService<TVShow> {
 
-	List<TVShow> searchByTitle(String title);
-
 	List<TVShow> findTopRatings(Integer num);
 
 	List<TVShow> findByContributorByFullName(String name, String surname);

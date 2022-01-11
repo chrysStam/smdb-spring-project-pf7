@@ -26,11 +26,6 @@ public class TVShowServiceImpl extends ContentServiceImpl<TVShow> implements TVS
 	}
 
 	@Override
-	public List<TVShow> searchByTitle(final String title) {
-		return tvShowRepository.searchByTitle(title);
-	}
-
-	@Override
 	public List<TVShow> findTopRatings(final Integer num) {
 		return tvShowRepository.findTopRating(PageRequest.of(0, num));
 	}

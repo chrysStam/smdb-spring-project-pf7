@@ -31,43 +31,31 @@ public class TVShowController extends ContentController<TVShow> {
 		return tvShowService;
 	}
 
-	@GetMapping(path= "search", params = {"title"})
-	public ResponseEntity<ApiResponse<List<TVShow>>> searchByTitle(@RequestParam("title") String title) {
-		return ResponseEntity.ok(ApiResponse.<List<TVShow>>builder()
-											.data(tvShowService.searchByTitle(title))
-											.build());
-	}
-
 	@GetMapping(path = "top", params = {"num"})
-	public ResponseEntity<ApiResponse<List<TVShow>>> findTopRatings(@RequestParam("num") Integer num){
-		return ResponseEntity.ok(ApiResponse.<List<TVShow>>builder()
-											.data(tvShowService.findTopRatings(num))
-											.build());
+	public ResponseEntity<ApiResponse<List<TVShow>>> findTopRatings(@RequestParam("num") Integer num) {
+		return ResponseEntity.ok(ApiResponse.<List<TVShow>>builder().data(tvShowService.findTopRatings(num)).build());
 	}
 
-
-
-	@GetMapping(params = {"name","surname"})
+	@GetMapping(params = {"name", "surname"})
 	public ResponseEntity<ApiResponse<List<TVShow>>> findByContributor(@RequestParam("name") String name,
-																	 @RequestParam("surname") String surname) {
-		return ResponseEntity.ok(ApiResponse.<List<TVShow>>builder()
-											.data(tvShowService.findByContributorByFullName(name,surname))
-											.build());
+																	   @RequestParam("surname") String surname) {
+		return ResponseEntity.ok(
+				ApiResponse.<List<TVShow>>builder().data(tvShowService.findByContributorByFullName(name, surname))
+						   .build());
 	}
 
-	@GetMapping(params = {"name","surname","role"})
+	@GetMapping(params = {"name", "surname", "role"})
 	public ResponseEntity<ApiResponse<List<TVShow>>> findByContributorAndRoleFullName(@RequestParam("name") String name,
-																			@RequestParam("surname") String surname,
-																			@RequestParam("role") Role role) {
+																					  @RequestParam("surname") String surname,
+																					  @RequestParam("role") Role role) {
 		return ResponseEntity.ok(ApiResponse.<List<TVShow>>builder()
-											.data(tvShowService.findByContributorAndRoleFullName(name,surname,role))
+											.data(tvShowService.findByContributorAndRoleFullName(name, surname, role))
 											.build());
 	}
-
-
 
 	@GetMapping(params = {"genre"})
 	public ResponseEntity<ApiResponse<List<TVShow>>> find2(@RequestParam("genre") Set<Genre> genre) {
-		return ResponseEntity.ok(ApiResponse.<List<TVShow>>builder().data(tvShowService.findAllByGenresIn(genre)).build());
+		return ResponseEntity.ok(
+				ApiResponse.<List<TVShow>>builder().data(tvShowService.findAllByGenresIn(genre)).build());
 	}
 }
