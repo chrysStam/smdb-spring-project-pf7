@@ -107,4 +107,9 @@ public abstract class ContentServiceImpl<T extends Content> extends BaseServiceI
 		return getRepository().findAll(PageRequest.of(0, num, Sort.by(Sort.Direction.DESC, "imdbScore"))).toList();
 	}
 
+	@Override
+	public List<T> findByContributorByFullName(final String name, final String surname) {
+		return getRepository().findByContributorByFullName(name, surname);
+	}
+
 }

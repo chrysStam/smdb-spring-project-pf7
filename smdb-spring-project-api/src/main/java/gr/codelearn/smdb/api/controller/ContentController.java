@@ -1,6 +1,7 @@
 package gr.codelearn.smdb.api.controller;
 
 import gr.codelearn.smdb.api.domain.Content;
+import gr.codelearn.smdb.api.domain.TVShow;
 import gr.codelearn.smdb.api.service.ContentService;
 import gr.codelearn.smdb.api.transfer.ApiResponse;
 import org.springframework.http.ResponseEntity;
@@ -21,19 +22,27 @@ public abstract class ContentController<T extends Content> extends AbstractContr
 
 	@GetMapping(params = {"title"})
 	public Callable<ResponseEntity<ApiResponse<List<T>>>> findByTitle(@RequestParam("title") String title) {
-		return () -> ResponseEntity.ok(ApiResponse.<List<T>>builder().data(getBaseService().findByTitle(title)).build());
+		return () -> ResponseEntity.ok(
+				ApiResponse.<List<T>>builder().data(getBaseService().findByTitle(title)).build());
 	}
 
-	@GetMapping(path= "search", params = {"title"})
+	@GetMapping(path = "search", params = {"title"})
 	public Callable<ResponseEntity<ApiResponse<List<T>>>> searchInTitle(@RequestParam("title") String title) {
-		return () -> ResponseEntity.ok(ApiResponse.<List<T>>builder()
-											.data(getBaseService().findByTitleContainingIgnoreCase(title))
-											.build());
+		return () -> ResponseEntity.ok(
+				ApiResponse.<List<T>>builder().data(getBaseService().findByTitleContainingIgnoreCase(title)).build());
 	}
 
 	@GetMapping(params = {"top"})
 	public Callable<ResponseEntity<ApiResponse<List<T>>>> findTopXByImdbScore(@RequestParam("top") Integer num) {
-		return () -> ResponseEntity.ok(ApiResponse.<List<T>>builder().data(getBaseService().findTopXOrderedByImdbScore(num)).build());
+		return () -> ResponseEntity.ok(
+				ApiResponse.<List<T>>builder().data(getBaseService().findTopXOrderedByImdbScore(num)).build());
 	}
 
+	@GetMapping(params = {"name", "surname"})
+	public Callable<ResponseEntity<ApiResponse<List<T>>>> findByContributor(@RequestParam("name") String name,
+																			@RequestParam("surname") String surname) {
+		return () -> ResponseEntity.ok(
+				ApiResponse.<List<T>>builder().data(getBaseService().findByContributorByFullName(name, surname))
+						   .build());
+	}
 }

@@ -10,8 +10,6 @@ import java.util.Set;
 
 public interface FilmService extends ContentService<Film> {
 
-	List<Content> findByContributorByFullName(String name, String surname);
-
 	List<Content> findByContributorAndRoleByFullName(String name, String surname, Role role);
 
 	List<Content> findAllByGenresIn(Set<Genre> genre);

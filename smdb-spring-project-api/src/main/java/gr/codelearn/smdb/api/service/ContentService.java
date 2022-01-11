@@ -21,4 +21,6 @@ public interface ContentService<T extends Content> extends BaseService<T, Long> 
 	List<T> findByTitleContainingIgnoreCase(String title);
 
 	List<T> findTopXOrderedByImdbScore(Integer num);
+
+	List<T> findByContributorByFullName(String name, String surname);
 }
