@@ -13,9 +13,6 @@ import java.util.Set;
 @Repository
 public interface TVShowRepository extends ContentRepository<TVShow> {
 
-	@Query("select DISTINCT s from TVShow s ORDER BY s.imdbScore DESC ")
-	List<TVShow> findTopRating(PageRequest pageable);
-
 	@Query("select DISTINCT s from TVShow s JOIN s.contentContributors c JOIN c.person p where p.id =(select DISTINCT" +
 			" p" +
 			".id from Person p WHERE p.name = :name and p.surname=:surname)")

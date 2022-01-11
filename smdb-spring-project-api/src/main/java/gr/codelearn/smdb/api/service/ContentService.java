@@ -5,6 +5,7 @@ import gr.codelearn.smdb.api.domain.CriticReview;
 import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.Person;
 import gr.codelearn.smdb.api.domain.Role;
+import gr.codelearn.smdb.api.domain.TVShow;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface ContentService<T extends Content> extends BaseService<T, Long> 
 	List<T> findByTitle(String title);
 
 	List<T> findByTitleContainingIgnoreCase(String title);
+
+	List<T> findTopXOrderedByImdbScore(Integer num);
 }

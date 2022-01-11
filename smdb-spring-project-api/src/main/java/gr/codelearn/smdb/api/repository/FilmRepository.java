@@ -14,9 +14,6 @@ import java.util.Set;
 @Repository
 public interface FilmRepository extends ContentRepository<Film> {
 
-	@Query("select DISTINCT f from Content f ORDER BY f.imdbScore DESC ")
-	List<Content> findTopRating(PageRequest pageable);
-
 	@Query("select DISTINCT f from Content f JOIN f.contentContributors c JOIN c.person p where p.id =(select " +
 			"DISTINCT p" +
 			".id from Person p WHERE p.name = :name and p.surname=:surname)")
