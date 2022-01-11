@@ -30,7 +30,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name ="PEOPLE")
-@SequenceGenerator(name = "idGenerator", sequenceName = "PEOPLE_SEQ", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "idGenerator", sequenceName = "PEOPLE_SEQ", initialValue = 21, allocationSize = 1)
 public class Person extends BaseModel {
 	@NotNull
 	@Column(length = 20)
