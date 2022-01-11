@@ -25,16 +25,21 @@ public class CriticReviewServiceImpl extends BaseServiceImpl<CriticReview> imple
 
 	@Override
 	public List<CriticReview> findByRatingGreaterThanEqual(Double minRating) {
-		return criticReviewRepository.findByRatingGreaterThanEqual(minRating);
+		return criticReviewRepository.findByRatingGreaterThanEqualOrderByRating(minRating);
 	}
 
 	@Override
 	public List<CriticReview> findByRatingLessThanEqual(Double maxRating) {
-		return criticReviewRepository.findByRatingLessThanEqual(maxRating);
+		return criticReviewRepository.findByRatingLessThanEqualOrderByRatingDesc(maxRating);
 	}
 
 	@Override
 	public List<CriticReview> findByRatingBetween(Double minRating, Double maxRating) {
-		return criticReviewRepository.findByRatingBetween(minRating, maxRating);
+		return criticReviewRepository.findByRatingBetweenOrderByRatingDesc(minRating, maxRating);
+	}
+
+	@Override
+	public List<CriticReview> findByContentId(Long contentId) {
+		return criticReviewRepository.findByContentId(contentId);
 	}
 }

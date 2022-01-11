@@ -55,4 +55,12 @@ public class CriticReviewController extends AbstractController<CriticReview> {
 												  .data(criticReviewService.findByRatingBetween(minRating, maxRating))
 												  .build());
 	}
+
+	@GetMapping(params = {"contentId"})
+	public Callable<ResponseEntity<ApiResponse<List<CriticReview>>>> findByContentId(
+			@RequestParam("contentId") Long contentId) {
+		return () -> ResponseEntity.ok(
+				ApiResponse.<List<CriticReview>>builder().data(criticReviewService.findByContentId(contentId))
+						   .build());
+	}
 }
