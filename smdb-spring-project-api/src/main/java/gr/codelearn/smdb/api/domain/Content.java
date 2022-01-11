@@ -41,6 +41,7 @@ public class Content extends BaseModel{
 	@Column(length = 4096, name="plot_summary")
 	private String plotSummary;
 
+	@NotNull
 	@Column(name="release_year")
 	@Min(1878)	// Year of first motion picture content ever made
 	private Integer releaseYear;
@@ -54,6 +55,7 @@ public class Content extends BaseModel{
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@ElementCollection(fetch = FetchType.EAGER)
+	@Enumerated(EnumType.STRING)
 	private final Set<Genre> genres = new HashSet<>();
 
 	@JsonManagedReference("contentContributors")

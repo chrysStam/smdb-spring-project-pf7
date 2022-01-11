@@ -6,19 +6,21 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum Genre {
-	COMEDY("comedy"),
-	SCIFI("sci-fi"),
-	HORROR("horror"),
-	ROMANCE("romance"),
-	ACTION("action"),
-	THRILLER("thriller"),
-	ANIMATION("animation"),
-	CRIME("crime"),
-	DRAMA("drama"),
-	FANTASY("fantasy"),
-	HISTORICAL("historical"),
-	WESTERN("western"),
-	OTHER("other");
+	COMEDY,
+	SCIFI,
+	HORROR,
+	ROMANCE,
+	ACTION,
+	THRILLER,
+	ANIMATION,
+	CRIME,
+	DRAMA,
+	FANTASY,
+	HISTORICAL,
+	DOCUMENTARY,
+	MYSTERY,
+	MUSICAL,
+	WESTERN,
+	OTHER;
 
-	private final String name;
 }

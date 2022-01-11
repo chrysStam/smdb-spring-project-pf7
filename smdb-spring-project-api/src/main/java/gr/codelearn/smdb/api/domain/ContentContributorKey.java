@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.io.Serializable;
 
 @Data
@@ -20,5 +22,6 @@ public class ContentContributorKey implements Serializable {
 	@Column(name = "person_id")
 	private Long personId;
 
+	@Enumerated(EnumType.STRING)
 	private Role role;
 }

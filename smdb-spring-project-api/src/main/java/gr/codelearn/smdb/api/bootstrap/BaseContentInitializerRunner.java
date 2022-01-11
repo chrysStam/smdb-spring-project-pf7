@@ -13,14 +13,13 @@ import gr.codelearn.smdb.api.service.PersonService;
 import gr.codelearn.smdb.api.service.TVShowService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
 import java.sql.Date;
 
 @Component
-@Profile("base-content-initializer")
+//@Profile("base-content-initializer")
 @RequiredArgsConstructor
 public class BaseContentInitializerRunner extends AbstractLogComponent implements CommandLineRunner {
 	private final PersonService personService;
@@ -74,9 +73,7 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 				CriticReview.builder().author("Dimitra Koumparaki").body("Amazing!").rating(9.1).build();
 		filmService.addCriticReview(film, criticReview);
 
-		filmService.update(film);
-
-		TVShow tvShow = TVShow.builder().title("Game of Thrones").numSeasons(8).build();
+		TVShow tvShow = TVShow.builder().title("Game of Thrones").releaseYear(2005).numSeasons(8).build();
 		tvShowService.addGenre(tvShow, Genre.FANTASY);
 		tvShowService.addGenre(tvShow, Genre.ACTION);
 		tvShowService.create(tvShow);
