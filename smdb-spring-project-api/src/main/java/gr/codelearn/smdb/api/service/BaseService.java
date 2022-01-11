@@ -10,4 +10,6 @@ public interface BaseService<T, ID> {
 	T find(ID id);
 
 	List<T> findAll();
+
+	void deleteById(ID id);
 }

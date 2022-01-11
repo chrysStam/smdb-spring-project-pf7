@@ -7,6 +7,7 @@ import gr.codelearn.smdb.api.transfer.ApiResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,13 +35,19 @@ public abstract class AbstractController<T extends BaseModel> extends AbstractLo
 	@PostMapping
 	public Callable<ResponseEntity<ApiResponse<T>>> create(@Valid @RequestBody final T entity) {
 		return () -> new ResponseEntity<>(ApiResponse.<T>builder().data(getBaseService().create(entity)).build(),
-									getNoCacheHeaders(), HttpStatus.CREATED);
+										  getNoCacheHeaders(), HttpStatus.CREATED);
 	}
 
 	@PutMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void update(@Valid @RequestBody final T entity) {
 		getBaseService().update(entity);
+	}
+
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable("id") final Long id) {
+		getBaseService().deleteById(id);
 	}
 
 	protected HttpHeaders getNoCacheHeaders() {
