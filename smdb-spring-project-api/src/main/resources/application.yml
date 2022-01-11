@@ -61,3 +61,6 @@ spring:
       # .sql) and DML (data.sql) scripts.
       mode: EMBEDDED
       platform: h2
+  mvc:
+    async:
+      request-timeout: 1000 # All calls have a maximum response time of 1 second.

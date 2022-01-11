@@ -13,33 +13,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.concurrent.Callable;
 
 public abstract class AbstractController<T extends BaseModel> extends AbstractLogComponent {
 	protected abstract BaseService<T, Long> getBaseService();
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ApiResponse<T>> get(@PathVariable("id") final Long id) {
-		try {
-			return ResponseEntity.ok(ApiResponse.<T>builder().data(getBaseService().find(id)).build());
-		} catch (NoSuchElementException ex) {
-			throw new ResponseStatusException(
-					HttpStatus.NOT_FOUND, "Not found", ex);
-		}
+	public Callable<ResponseEntity<ApiResponse<T>>> get(@PathVariable("id") final Long id) {
+		return () -> ResponseEntity.ok(ApiResponse.<T>builder().data(getBaseService().find(id)).build());
 	}
 
 	@GetMapping
-	public ResponseEntity<ApiResponse<List<T>>> findAll() {
-		return ResponseEntity.ok(ApiResponse.<List<T>>builder().data(getBaseService().findAll()).build());
+	public Callable<ResponseEntity<ApiResponse<List<T>>>> findAll() {
+		return () -> ResponseEntity.ok(ApiResponse.<List<T>>builder().data(getBaseService().findAll()).build());
 	}
 
 	@PostMapping
-	public ResponseEntity<ApiResponse<T>> create(@Valid @RequestBody final T entity) {
-		return new ResponseEntity<>(ApiResponse.<T>builder().data(getBaseService().create(entity)).build(),
+	public Callable<ResponseEntity<ApiResponse<T>>> create(@Valid @RequestBody final T entity) {
+		return () -> new ResponseEntity<>(ApiResponse.<T>builder().data(getBaseService().create(entity)).build(),
 									getNoCacheHeaders(), HttpStatus.CREATED);
 	}
 
