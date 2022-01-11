@@ -26,7 +26,8 @@ public class CriticReviewController extends AbstractController<CriticReview> {
 	}
 
 	@GetMapping(params = {"author"})
-	public Callable<ResponseEntity<ApiResponse<List<CriticReview>>>> findByAuthor(@RequestParam("author") String author) {
+	public Callable<ResponseEntity<ApiResponse<List<CriticReview>>>> findByAuthor(
+			@RequestParam("author") String author) {
 		return () -> ResponseEntity.ok(
 				ApiResponse.<List<CriticReview>>builder().data(criticReviewService.findByAuthor(author)).build());
 	}
@@ -35,7 +36,8 @@ public class CriticReviewController extends AbstractController<CriticReview> {
 	public Callable<ResponseEntity<ApiResponse<List<CriticReview>>>> findByRatingGreaterThanEqual(
 			@RequestParam("minRating") Double minRating) {
 		return () -> ResponseEntity.ok(ApiResponse.<List<CriticReview>>builder()
-											.data(criticReviewService.findByRatingGreaterThanEqual(minRating)).build());
+												  .data(criticReviewService.findByRatingGreaterThanEqual(minRating))
+												  .build());
 	}
 
 	@GetMapping(params = {"maxRating"})
@@ -50,7 +52,7 @@ public class CriticReviewController extends AbstractController<CriticReview> {
 	public Callable<ResponseEntity<ApiResponse<List<CriticReview>>>> findByRatingBetween(
 			@RequestParam("minRating") Double minRating, @RequestParam("maxRating") Double maxRating) {
 		return () -> ResponseEntity.ok(ApiResponse.<List<CriticReview>>builder()
-											.data(criticReviewService.findByRatingBetween(minRating, maxRating))
-											.build());
+												  .data(criticReviewService.findByRatingBetween(minRating, maxRating))
+												  .build());
 	}
 }

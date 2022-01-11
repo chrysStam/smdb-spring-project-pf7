@@ -1,13 +1,13 @@
 package gr.codelearn.smdb.api.service;
 
-import gr.codelearn.smdb.api.transfer.KeyValue;
+import org.apache.commons.csv.CSVPrinter;
 
-import java.io.Writer;
-import java.util.List;
+import java.io.IOException;
+import java.util.zip.ZipOutputStream;
 
 public interface CsvExportService {
 
-	List<KeyValue<String, String>> exportList();
+	void exportAll(ZipOutputStream zipOutputStream) throws IOException;
 
-	void export(Writer writer, String table);
+	void export(CSVPrinter csvPrinter, String table) throws IOException;
 }
