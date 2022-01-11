@@ -22,25 +22,39 @@ public interface ReportRepository extends JpaRepository<Content, Long> {
 
 //	 Report 1: Return the top X high-rated content.
 	@Query("select DISTINCT f from Content f ORDER BY f.imdbScore DESC")
-	List<Content> findTopRating(PageRequest pageable);
+	List<Content> findTopXHighIMDBScore(PageRequest pageable);
 
-//	Report 2: Return all content associated with a given individual regardless of hir/her contributing role. (BY NAME)
+//	Report 2: Return all content associated with a given individual regardless of hir/her contributing role.
+	// BY ID
+	@Query("select c from Content c join c.contentContributors cC where cC.key.personId = ?1")
+	List<Content>findContributionsOfPersonById(Long personId);
+
+	//	(BY NAME)
 	@Query("select DISTINCT f from Content f JOIN f.contentContributors c JOIN c.person p where p.id =(select " +
 			"DISTINCT p" +
 			".id from Person p WHERE p.name = :name and p.surname=:surname)")
 	List<Content> findByContributorByFullName(String name,String surname);
 
-//	Report 3: Return all content associated with a given individual for a given contributing role. (BY NAME)
+
+//	Report 3: Return all content associated with a given individual for a given contributing role.
+	// BY ID
+	@Query("select c from Content c join c.contentContributors cC where cC.key.personId = ?1 and cC.key.role = ?2")
+	List<Content> findContributionsOfPersonByIdAndRole(Long personId, Role role);
+
+	//	(BY NAME)
 	@Query("select DISTINCT f from Content f JOIN f.contentContributors c JOIN c.key k JOIN c.person p where p.id =" +
 			"(select DISTINCT p.id from Person p WHERE p.name = :name and p.surname=:surname) AND (k.role=:role) ")
 	List<Content> findByContributorByFullNameAndRole(String name, String surname, Role role);
 
+
 //	Report 4: Return all content for a given genre
 	List<Content> findAllByGenresContaining(Genre genre);
+
 
 //	Report 5: Return the number of shows per genre
 	@Query(value="SELECT genres, count(content_id) as number FROM CONTENT_GENRES group by genres" , nativeQuery = true)
 	List<NoOfContentPerGenreDto> findNoOfContentPerGenre();
+
 
 //	Report 6: Return the numbers of shows per year per genre
 	@Query("select c.releaseYear from Content  c group by c.releaseYear")
@@ -50,6 +64,7 @@ public interface ReportRepository extends JpaRepository<Content, Long> {
 			"FROM CONTENT_GENRES as cg inner join contents as c on cg.content_id = c.id " +
 			"where release_year= ?1 group by genres", nativeQuery = true)
 	List<NoOfContentPerGenreDto> findNoOfContentByReleaseYearPerGenre(Integer year);
+
 
 //	Report 7: Return all content associated with a given individual organized per genre
 	@Query(value="SELECT foo.*, cc.role, cc.person_id as personId "+

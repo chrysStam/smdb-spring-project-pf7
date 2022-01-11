@@ -31,3 +31,4 @@ public class Film extends Content {
 	private BigInteger budget;
 	private BigInteger boxOffice;
 }
+

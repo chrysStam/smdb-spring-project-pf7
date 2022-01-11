@@ -38,4 +38,12 @@ public abstract class BaseServiceImpl<T extends BaseModel> extends AbstractLogCo
 		logger.trace("Retrieving all data.");
 		return getRepository().findAll();
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
+	public void deleteById(final Long id) {
+		final T entityFound = getRepository().getById(id);
+		logger.trace("Deleting {}.", entityFound);
+		getRepository().deleteById(id);
+	}
 }

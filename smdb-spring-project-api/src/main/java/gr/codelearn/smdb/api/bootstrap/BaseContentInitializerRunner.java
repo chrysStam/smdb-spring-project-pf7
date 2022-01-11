@@ -12,16 +12,11 @@ import gr.codelearn.smdb.api.service.FilmService;
 import gr.codelearn.smdb.api.service.PersonService;
 import gr.codelearn.smdb.api.service.TVShowService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.sql.Date;
-import java.util.List;
 
 @Component
 //@Profile("base-content-initializer")
@@ -32,7 +27,7 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 	private final TVShowService tvShowService;
 
 	@Override
-	public void run(final String... args) throws Exception {
+	public void run(final String... args) {
 		/* Add People */
 
 		Person person1 = personService.create(Person.builder().name("Brad").surname("Pitt").birthDate(
@@ -65,33 +60,24 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 		// This will be ignored since (person,role) tuple is already added
 		filmService.addContributor(film, person2, Role.ACTOR);
 
-		filmService.update(film);
+		// Adding a critic review
+		CriticReview criticReview =
+				CriticReview.builder().author("Theodoros Mystiloglou").body("It was ok.").rating(7.2).build();
+		filmService.addCriticReview(film, criticReview);
+		criticReview =
+				CriticReview.builder().author("Mike Daskalantonakis").body("I did not enjoy it.").rating(5.4).build();
+		filmService.addCriticReview(film, criticReview);
+		criticReview =
+				CriticReview.builder().author("Dimitra Koumparaki").body("Amazing!").rating(9.1).build();
+		filmService.addCriticReview(film, criticReview);
 
+		filmService.update(film);
 
 		TVShow tvShow = TVShow.builder().title("Game of Thrones").releaseYear(2005).numSeasons(8).build();
 		tvShowService.addGenre(tvShow, Genre.FANTASY);
 		tvShowService.addGenre(tvShow, Genre.ACTION);
 		tvShowService.create(tvShow);
 
-		/* Export to CSV code - probably needs its own dedicated ExportService and a function for each domain class
-		*  which return the rows exported. Probably will have /person/export etc... and /exportAll REST calls */
-
-		// Following this example: https://springhow.com/spring-boot-export-to-csv/
-
-		// Person export:
-
-		FileWriter fileWriter = new FileWriter("people.csv");	// Will be replaced by controller writer
-
-		List<Person> people = personService.findAll();
-		// Can add column names on the first row of the csv if wanted
-		try (CSVPrinter csvPrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT)) {
-			for (Person p : people) {
-				csvPrinter.printRecord(p.getId(), p.getName(), p.getSurname(), p.getBirthDate(), p.getDeathDate());
-			}
-			logger.info("Table [Person]: Successfully exported {} rows", people.size());
-		} catch (IOException e) {
-			logger.error("Error while writing to CSV file", e);
-		}
 
 	}
 }
