@@ -12,4 +12,6 @@ public interface CriticReviewService extends BaseService<CriticReview, Long> {
 	List<CriticReview> findByRatingLessThanEqual(Double maxRating);
 
 	List<CriticReview> findByRatingBetween(Double minRating, Double maxRating);
+
+	List<CriticReview> findByContentId(Long contentId);
 }
