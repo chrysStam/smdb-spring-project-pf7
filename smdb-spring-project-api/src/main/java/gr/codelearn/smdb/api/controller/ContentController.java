@@ -1,6 +1,7 @@
 package gr.codelearn.smdb.api.controller;
 
 import gr.codelearn.smdb.api.domain.Content;
+import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.domain.TVShow;
 import gr.codelearn.smdb.api.service.ContentService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 @RestController
@@ -56,5 +58,11 @@ public abstract class ContentController<T extends Content> extends AbstractContr
 																											surname,
 																											role))
 												  .build());
+	}
+
+	@GetMapping(params = {"genre"})
+	public Callable<ResponseEntity<ApiResponse<List<T>>>> findByGenre(@RequestParam("genre") Genre genre) {
+		return () -> ResponseEntity.ok(
+				ApiResponse.<List<T>>builder().data(getBaseService().findAllByGenresContaining(genre)).build());
 	}
 }

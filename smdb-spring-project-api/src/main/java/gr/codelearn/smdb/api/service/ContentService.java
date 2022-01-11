@@ -24,4 +24,6 @@ public interface ContentService<T extends Content> extends BaseService<T, Long> 
 	List<T> findByContributorByFullName(String name, String surname);
 
 	List<T> findByContributorByFullNameAndRole(String name, String surname, Role role);
+
+	List<T> findAllByGenresContaining(Genre genre);
 }

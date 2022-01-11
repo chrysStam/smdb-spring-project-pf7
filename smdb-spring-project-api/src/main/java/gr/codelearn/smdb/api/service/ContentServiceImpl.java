@@ -115,4 +115,9 @@ public abstract class ContentServiceImpl<T extends Content> extends BaseServiceI
 	public List<T> findByContributorByFullNameAndRole(final String name, final String surname, final Role role) {
 		return getRepository().findByContributorByFullNameAndRole(name, surname, role);
 	}
+
+	@Override
+	public List<T> findAllByGenresContaining(final Genre genre) {
+		return getRepository().findAllByGenresContaining(genre);
+	}
 }
