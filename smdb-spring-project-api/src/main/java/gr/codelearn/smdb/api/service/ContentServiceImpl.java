@@ -112,4 +112,7 @@ public abstract class ContentServiceImpl<T extends Content> extends BaseServiceI
 		return getRepository().findByContributorByFullName(name, surname);
 	}
 
+	public List<T> findByContributorByFullNameAndRole(final String name, final String surname, final Role role) {
+		return getRepository().findByContributorByFullNameAndRole(name, surname, role);
+	}
 }

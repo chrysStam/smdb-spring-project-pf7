@@ -23,13 +23,8 @@ public class FilmServiceImpl extends ContentServiceImpl<Film> implements FilmSer
 		return filmRepository;
 	}
 
-	public List<Content> findByContributorAndRoleByFullName(final String name, final String surname, final Role role) {
-		return filmRepository.findByContributorAndRoleByFullName(name, surname, role);
-	}
-
 	@Override
 	public List<Content> findAllByGenresIn(final Set<Genre> genre) {
 		return (List<Content>) filmRepository.findAllByGenresIn(genre);
 	}
-
 }

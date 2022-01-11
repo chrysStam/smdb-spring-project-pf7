@@ -1,6 +1,7 @@
 package gr.codelearn.smdb.api.controller;
 
 import gr.codelearn.smdb.api.domain.Content;
+import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.domain.TVShow;
 import gr.codelearn.smdb.api.service.ContentService;
 import gr.codelearn.smdb.api.transfer.ApiResponse;
@@ -39,10 +40,21 @@ public abstract class ContentController<T extends Content> extends AbstractContr
 	}
 
 	@GetMapping(params = {"name", "surname"})
-	public Callable<ResponseEntity<ApiResponse<List<T>>>> findByContributor(@RequestParam("name") String name,
-																			@RequestParam("surname") String surname) {
+	public Callable<ResponseEntity<ApiResponse<List<T>>>> findByContributorByFullName(@RequestParam("name") String name,
+																					  @RequestParam("surname") String surname) {
 		return () -> ResponseEntity.ok(
 				ApiResponse.<List<T>>builder().data(getBaseService().findByContributorByFullName(name, surname))
 						   .build());
+	}
+
+	@GetMapping(params = {"name", "surname", "role"})
+	public Callable<ResponseEntity<ApiResponse<List<T>>>> findByContributorByFullNameAndRole(
+			@RequestParam("name") String name, @RequestParam("surname") String surname,
+			@RequestParam("role") Role role) {
+		return () -> ResponseEntity.ok(ApiResponse.<List<T>>builder()
+												  .data(getBaseService().findByContributorByFullNameAndRole(name,
+																											surname,
+																											role))
+												  .build());
 	}
 }
