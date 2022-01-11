@@ -22,21 +22,12 @@ public class PersonServiceImpl extends BaseServiceImpl<Person> implements Person
 		return personRepository;
 	}
 
-	@Override
-	public List<Content> getContributionsOfPersonByIdByRole(Long personId, Role role) {
-		return personRepository.getContributionsOfPersonByIdByRole(personId, role);
-	}
-
 	public List<TVShow> getTVShowContributionsOfPersonById(Long personId){
 		return personRepository.getTVShowContributionsOfPersonById(personId);
 	}
 
 	public List<Film> getFilmContributionsOfPersonById(Long personId){
 		return personRepository.getFilmContributionsOfPersonById(personId);
-	}
-
-	public List<Content> getContributionsOfPersonById(Long personId){
-		return personRepository.getContributionsOfPersonById(personId);
 	}
 
 }
