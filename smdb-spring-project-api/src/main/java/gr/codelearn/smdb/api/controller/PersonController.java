@@ -29,15 +29,6 @@ public class PersonController extends AbstractController<Person> {
 		return personService;
 	}
 
-	@GetMapping(path = "/{pId}/contents", params = "role", headers = "action=getContributionsOfPersonByIdByRole",
-			produces =
-			"application/vnd.app-v1+json")
-	public ResponseEntity<ApiResponse<List<Content>>> getContributionsOfPersonByIdByRole(
-			@PathVariable(value = "pId") Long personId,
-			@RequestParam("role") Role role) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(personService.getContributionsOfPersonByIdByRole(personId, role)).build());
-	}
 
 	@GetMapping(path = "/{pId}/tvshows", headers = "action=getTVShowContributionsOfPersonById", produces =
 			"application/vnd.app-v1+json")
@@ -55,13 +46,6 @@ public class PersonController extends AbstractController<Person> {
 											.data(personService.getFilmContributionsOfPersonById(personId)).build());
 	}
 
-	@GetMapping(path = "/{pId}/contents", headers = "action=getContributionsOfPersonById", produces =
-			"application/vnd.app-v1+json")
-	public ResponseEntity<ApiResponse<List<Content>>> getContributionsOfPersonById(
-			@PathVariable(value = "pId") Long personId) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(personService.getContributionsOfPersonById(personId)).build());
-	}
 
 
 }
