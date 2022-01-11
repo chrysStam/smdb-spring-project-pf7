@@ -113,9 +113,10 @@ public class CsvExportServiceImpl extends AbstractLogComponent implements CsvExp
 				return;
 			case "reviews":
 				List<CriticReview> criticReviews = criticReviewRepository.findAll();
-				csvPrinter.printRecord("critic_review_id", "author", "body", "submitted_at", "rating");
+				csvPrinter.printRecord("critic_review_id", "content_id", "author", "body", "submitted_at", "rating");
 				for (CriticReview r : criticReviews) {
-					csvPrinter.printRecord(r.getId(), r.getAuthor(), r.getBody(), r.getSubmittedAt(), r.getRating());
+					csvPrinter.printRecord(r.getId(),r.getContent().getId(), r.getAuthor(), r.getBody(),
+										   r.getSubmittedAt(), r.getRating());
 				}
 				logger.info("Table [CriticReviews]: Successfully exported {} rows", criticReviews.size());
 				return;
