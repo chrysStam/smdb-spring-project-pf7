@@ -25,10 +25,6 @@ public class TVShowServiceImpl extends ContentServiceImpl<TVShow> implements TVS
 		return tvShowRepository;
 	}
 
-	public List<TVShow> findByContributorByFullName(final String name, final String surname) {
-		return tvShowRepository.findByContributorByFullName(name, surname);
-	}
-
 	public List<TVShow> findByContributorAndRoleFullName(final String name, final String surname, final Role role) {
 		return tvShowRepository.findByContributorAndRoleFullName(name, surname, role);
 	}
