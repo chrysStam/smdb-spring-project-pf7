@@ -3,12 +3,11 @@ package gr.codelearn.smdb.api.service;
 import gr.codelearn.smdb.api.domain.Content;
 import gr.codelearn.smdb.api.domain.Film;
 import gr.codelearn.smdb.api.domain.Genre;
-import gr.codelearn.smdb.api.domain.Person;
 import gr.codelearn.smdb.api.domain.Role;
+import gr.codelearn.smdb.api.repository.ContentRepository;
 import gr.codelearn.smdb.api.repository.FilmRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,33 +19,21 @@ public class FilmServiceImpl extends ContentServiceImpl<Film> implements FilmSer
 	private final FilmRepository filmRepository;
 
 	@Override
-	public JpaRepository<Film, Long> getRepository() {
+	public ContentRepository<Film> getRepository() {
 		return filmRepository;
 	}
 
-
-
 	@Override
-	public Film findByTitle(final String title) {
-		return filmRepository.findAll().stream().filter(c -> c.getTitle().equals(title)).findAny().orElse(null);
-	}
-
-	@Override
-	public List<Content> searchByTitle(final String title) {
-		return filmRepository.searchByTitle(title);
-	}
-
-	@Override
-	public List<Content> findTopRatings(final Integer num){
+	public List<Content> findTopRatings(final Integer num) {
 		return filmRepository.findTopRating(PageRequest.of(0, num));
 	}
 
-	public List<Content> findByContributorByFullName(final String name,final String surname){
-		return filmRepository.findByContributorByFullName(name,surname);
+	public List<Content> findByContributorByFullName(final String name, final String surname) {
+		return filmRepository.findByContributorByFullName(name, surname);
 	}
 
-	public List<Content> findByContributorAndRoleByFullName(final String name,final String surname,final Role role){
-		return filmRepository.findByContributorAndRoleByFullName(name,surname,role);
+	public List<Content> findByContributorAndRoleByFullName(final String name, final String surname, final Role role) {
+		return filmRepository.findByContributorAndRoleByFullName(name, surname, role);
 	}
 
 	@Override

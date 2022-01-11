@@ -6,6 +6,7 @@ import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.Person;
 import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.service.BaseService;
+import gr.codelearn.smdb.api.service.ContentService;
 import gr.codelearn.smdb.api.service.FilmService;
 import gr.codelearn.smdb.api.transfer.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,61 +21,41 @@ import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/films")
-public class FilmController extends AbstractController<Film> {
+@RequestMapping("/contents/films")
+public class FilmController extends ContentController<Film> {
 	private final FilmService filmService;
 
 	@Override
-	protected BaseService<Film, Long> getBaseService() {
+	protected ContentService<Film> getBaseService() {
 		return filmService;
 	}
 
-	@GetMapping(params = {"t"})
-	public Film find(@RequestParam("t") String title) {
-		return filmService.findByTitle(title);
-	}
-
-	@GetMapping(path= "search", params = {"title"})
-	public ResponseEntity<ApiResponse<List<Content>>> searchByTitle(@RequestParam("title") String title) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(filmService.searchByTitle(title))
-											.build());
-	}
-
-
 	@GetMapping(path = "top", params = {"num"})
-	public ResponseEntity<ApiResponse<List<Content>>> findTopRatings(@RequestParam("num") Integer num){
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(filmService.findTopRatings(num))
-											.build());
+	public ResponseEntity<ApiResponse<List<Content>>> findTopRatings(@RequestParam("num") Integer num) {
+		return ResponseEntity.ok(ApiResponse.<List<Content>>builder().data(filmService.findTopRatings(num)).build());
 	}
 
-
-
-
-	@GetMapping(params = {"name","surname"})
+	@GetMapping(params = {"name", "surname"})
 	public ResponseEntity<ApiResponse<List<Content>>> findByContributor(@RequestParam("name") String name,
-																	   @RequestParam("surname") String surname) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(filmService.findByContributorByFullName(name,surname))
-											.build());
+																		@RequestParam("surname") String surname) {
+		return ResponseEntity.ok(
+				ApiResponse.<List<Content>>builder().data(filmService.findByContributorByFullName(name, surname))
+						   .build());
 	}
 
-	@GetMapping(params = {"name","surname","role"})
+	@GetMapping(params = {"name", "surname", "role"})
 	public ResponseEntity<ApiResponse<List<Content>>> findByContributorAndRole(@RequestParam("name") String name,
-																	 @RequestParam("surname") String surname,
-																			@RequestParam("role") Role role) {
+																			   @RequestParam("surname") String surname,
+																			   @RequestParam("role") Role role) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(filmService.findByContributorAndRoleByFullName(name,surname,role))
+											.data(filmService.findByContributorAndRoleByFullName(name, surname, role))
 											.build());
 	}
-
 
 	@GetMapping(params = {"genre"})
 	public ResponseEntity<ApiResponse<List<Content>>> find2(@RequestParam("genre") Set<Genre> genre) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(filmService.findAllByGenresIn(genre))
-											.build());
+		return ResponseEntity.ok(
+				ApiResponse.<List<Content>>builder().data(filmService.findAllByGenresIn(genre)).build());
 	}
 
 }
