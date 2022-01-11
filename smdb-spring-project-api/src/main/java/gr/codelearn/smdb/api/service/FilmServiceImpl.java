@@ -1,17 +1,10 @@
 package gr.codelearn.smdb.api.service;
 
-import gr.codelearn.smdb.api.domain.Content;
 import gr.codelearn.smdb.api.domain.Film;
-import gr.codelearn.smdb.api.domain.Genre;
-import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.repository.ContentRepository;
 import gr.codelearn.smdb.api.repository.FilmRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -21,10 +14,5 @@ public class FilmServiceImpl extends ContentServiceImpl<Film> implements FilmSer
 	@Override
 	public ContentRepository<Film> getRepository() {
 		return filmRepository;
-	}
-
-	@Override
-	public List<Content> findAllByGenresIn(final Set<Genre> genre) {
-		return (List<Content>) filmRepository.findAllByGenresIn(genre);
 	}
 }
