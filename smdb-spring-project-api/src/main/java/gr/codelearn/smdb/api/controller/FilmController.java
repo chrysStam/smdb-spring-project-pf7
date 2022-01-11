@@ -30,19 +30,9 @@ public class FilmController extends ContentController<Film> {
 		return filmService;
 	}
 
-	@GetMapping(params = {"name", "surname", "role"})
-	public ResponseEntity<ApiResponse<List<Content>>> findByContributorAndRole(@RequestParam("name") String name,
-																			   @RequestParam("surname") String surname,
-																			   @RequestParam("role") Role role) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(filmService.findByContributorAndRoleByFullName(name, surname, role))
-											.build());
-	}
-
 	@GetMapping(params = {"genre"})
 	public ResponseEntity<ApiResponse<List<Content>>> find2(@RequestParam("genre") Set<Genre> genre) {
 		return ResponseEntity.ok(
 				ApiResponse.<List<Content>>builder().data(filmService.findAllByGenresIn(genre)).build());
 	}
-
 }

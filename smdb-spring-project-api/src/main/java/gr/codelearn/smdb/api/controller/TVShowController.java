@@ -31,15 +31,6 @@ public class TVShowController extends ContentController<TVShow> {
 		return tvShowService;
 	}
 
-	@GetMapping(params = {"name", "surname", "role"})
-	public ResponseEntity<ApiResponse<List<TVShow>>> findByContributorAndRoleFullName(@RequestParam("name") String name,
-																					  @RequestParam("surname") String surname,
-																					  @RequestParam("role") Role role) {
-		return ResponseEntity.ok(ApiResponse.<List<TVShow>>builder()
-											.data(tvShowService.findByContributorAndRoleFullName(name, surname, role))
-											.build());
-	}
-
 	@GetMapping(params = {"genre"})
 	public ResponseEntity<ApiResponse<List<TVShow>>> find2(@RequestParam("genre") Set<Genre> genre) {
 		return ResponseEntity.ok(
