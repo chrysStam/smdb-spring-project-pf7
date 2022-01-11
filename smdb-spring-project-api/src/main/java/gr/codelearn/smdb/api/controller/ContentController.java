@@ -25,9 +25,15 @@ public abstract class ContentController<T extends Content> extends AbstractContr
 	}
 
 	@GetMapping(path= "search", params = {"title"})
-	public Callable<ResponseEntity<ApiResponse<List<T>>>> findByTitleContainingIgnoreCase(@RequestParam("title") String title) {
+	public Callable<ResponseEntity<ApiResponse<List<T>>>> searchInTitle(@RequestParam("title") String title) {
 		return () -> ResponseEntity.ok(ApiResponse.<List<T>>builder()
 											.data(getBaseService().findByTitleContainingIgnoreCase(title))
 											.build());
 	}
+
+	@GetMapping(params = {"top"})
+	public Callable<ResponseEntity<ApiResponse<List<T>>>> findTopXByImdbScore(@RequestParam("top") Integer num) {
+		return () -> ResponseEntity.ok(ApiResponse.<List<T>>builder().data(getBaseService().findTopXOrderedByImdbScore(num)).build());
+	}
+
 }

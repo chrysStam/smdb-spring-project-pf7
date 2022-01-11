@@ -23,11 +23,6 @@ public class FilmServiceImpl extends ContentServiceImpl<Film> implements FilmSer
 		return filmRepository;
 	}
 
-	@Override
-	public List<Content> findTopRatings(final Integer num) {
-		return filmRepository.findTopRating(PageRequest.of(0, num));
-	}
-
 	public List<Content> findByContributorByFullName(final String name, final String surname) {
 		return filmRepository.findByContributorByFullName(name, surname);
 	}

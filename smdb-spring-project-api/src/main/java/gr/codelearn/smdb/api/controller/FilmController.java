@@ -30,11 +30,6 @@ public class FilmController extends ContentController<Film> {
 		return filmService;
 	}
 
-	@GetMapping(path = "top", params = {"num"})
-	public ResponseEntity<ApiResponse<List<Content>>> findTopRatings(@RequestParam("num") Integer num) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder().data(filmService.findTopRatings(num)).build());
-	}
-
 	@GetMapping(params = {"name", "surname"})
 	public ResponseEntity<ApiResponse<List<Content>>> findByContributor(@RequestParam("name") String name,
 																		@RequestParam("surname") String surname) {

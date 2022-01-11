@@ -31,11 +31,6 @@ public class TVShowController extends ContentController<TVShow> {
 		return tvShowService;
 	}
 
-	@GetMapping(path = "top", params = {"num"})
-	public ResponseEntity<ApiResponse<List<TVShow>>> findTopRatings(@RequestParam("num") Integer num) {
-		return ResponseEntity.ok(ApiResponse.<List<TVShow>>builder().data(tvShowService.findTopRatings(num)).build());
-	}
-
 	@GetMapping(params = {"name", "surname"})
 	public ResponseEntity<ApiResponse<List<TVShow>>> findByContributor(@RequestParam("name") String name,
 																	   @RequestParam("surname") String surname) {
