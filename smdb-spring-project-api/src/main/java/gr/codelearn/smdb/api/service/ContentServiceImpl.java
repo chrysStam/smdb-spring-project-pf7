@@ -7,10 +7,15 @@ import gr.codelearn.smdb.api.domain.CriticReview;
 import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.Person;
 import gr.codelearn.smdb.api.domain.Role;
+import gr.codelearn.smdb.api.repository.ContentRepository;
 
 import java.util.Date;
+import java.util.List;
 
 public abstract class ContentServiceImpl<T extends Content> extends BaseServiceImpl<T> implements ContentService<T> {
+
+	@Override
+	public abstract ContentRepository<T> getRepository();
 
 	@Override
 	public void addGenre(T content, Genre genre) {
@@ -69,5 +74,10 @@ public abstract class ContentServiceImpl<T extends Content> extends BaseServiceI
 			logger.warn("CriticReview [{}] for Content [{}] already exists, nothing was changed.", criticReview,
 						content);
 		}
+	}
+
+	@Override
+	public List<T> findByTitle(final String title) {
+		return getRepository().findByTitle(title);
 	}
 }

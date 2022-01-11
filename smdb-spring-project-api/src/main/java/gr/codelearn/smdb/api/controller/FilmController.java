@@ -6,6 +6,7 @@ import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.Person;
 import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.service.BaseService;
+import gr.codelearn.smdb.api.service.ContentService;
 import gr.codelearn.smdb.api.service.FilmService;
 import gr.codelearn.smdb.api.transfer.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,18 +21,13 @@ import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/films")
-public class FilmController extends AbstractController<Film> {
+@RequestMapping("/contents/films")
+public class FilmController extends ContentController<Film> {
 	private final FilmService filmService;
 
 	@Override
-	protected BaseService<Film, Long> getBaseService() {
+	protected ContentService<Film> getBaseService() {
 		return filmService;
-	}
-
-	@GetMapping(params = {"t"})
-	public Film find(@RequestParam("t") String title) {
-		return filmService.findByTitle(title);
 	}
 
 	@GetMapping(path= "search", params = {"title"})

@@ -6,6 +6,7 @@ import gr.codelearn.smdb.api.domain.Person;
 import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.domain.TVShow;
 import gr.codelearn.smdb.api.service.BaseService;
+import gr.codelearn.smdb.api.service.ContentService;
 import gr.codelearn.smdb.api.service.FilmService;
 import gr.codelearn.smdb.api.service.TVShowService;
 import gr.codelearn.smdb.api.transfer.ApiResponse;
@@ -21,18 +22,13 @@ import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/tvshows")
-public class TVShowController extends AbstractController<TVShow> {
+@RequestMapping("/contents/tvshows")
+public class TVShowController extends ContentController<TVShow> {
 	private final TVShowService tvShowService;
 
 	@Override
-	protected BaseService<TVShow, Long> getBaseService() {
+	protected ContentService<TVShow> getBaseService() {
 		return tvShowService;
-	}
-
-	@GetMapping(params = {"t"})
-	public TVShow find(@RequestParam("t") String title) {
-		return tvShowService.findByTitle(title);
 	}
 
 	@GetMapping(path= "search", params = {"title"})

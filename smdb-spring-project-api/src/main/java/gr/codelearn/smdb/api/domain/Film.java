@@ -22,7 +22,7 @@ import java.math.BigInteger;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "FILMS")
-@SequenceGenerator(name = "idGenerator", sequenceName = "FILMS_SEQ", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "idGenerator", sequenceName = "FILMS_SEQ", initialValue = 11, allocationSize = 1)
 public class Film extends Content {
 	@NotNull
 	@Min(value = 1)

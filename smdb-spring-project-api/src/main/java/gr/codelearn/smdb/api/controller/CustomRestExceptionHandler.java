@@ -3,6 +3,7 @@ package gr.codelearn.smdb.api.controller;
 import gr.codelearn.smdb.api.base.AbstractLogComponent;
 import gr.codelearn.smdb.api.transfer.ApiError;
 import gr.codelearn.smdb.api.transfer.ApiResponse;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -32,6 +33,18 @@ public class CustomRestExceptionHandler extends AbstractLogComponent {
 		return new ResponseEntity<>(ApiResponse.builder().apiError(
 				getApiError(ex, HttpStatus.NOT_FOUND, request, "Reference to a non-existent object.")).build(),
 									HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public final ResponseEntity<ApiResponse<?>> handleDataConstraintErrors(final DataIntegrityViolationException ex,
+																		   final WebRequest request) {
+		var customMessage = "There was a conflict while interacting with the associated database. Make sure the " +
+				"data submitted does not include already existing values in fields such as ids and serial numbers.";
+		logger.error("{}", customMessage, ex);
+
+		return new ResponseEntity<>(
+				ApiResponse.builder().apiError(getApiError(ex, HttpStatus.NOT_ACCEPTABLE, request, customMessage))
+						   .build(), HttpStatus.NOT_ACCEPTABLE);
 	}
 
 	@ExceptionHandler(IOException.class)

@@ -3,11 +3,8 @@ package gr.codelearn.smdb.api.repository;
 import gr.codelearn.smdb.api.domain.Content;
 import gr.codelearn.smdb.api.domain.Film;
 import gr.codelearn.smdb.api.domain.Genre;
-import gr.codelearn.smdb.api.domain.Person;
 import gr.codelearn.smdb.api.domain.Role;
-import gr.codelearn.smdb.api.domain.TVShow;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -15,9 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public interface FilmRepository extends JpaRepository<Film, Long> {
-
-	Film findByTitle(String title);
+public interface FilmRepository extends ContentRepository<Film> {
 
 	@Query("select DISTINCT f from Content f WHERE lower(f.title) LIKE %:title% ")
 	List<Content> searchByTitle(String title);

@@ -60,8 +60,6 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 		// This will be ignored since (person,role) tuple is already added
 		filmService.addContributor(film, person2, Role.ACTOR);
 
-		filmService.update(film);
-
 		// Adding a critic review
 		CriticReview criticReview =
 				CriticReview.builder().author("Theodoros Mystiloglou").body("It was ok.").rating(7.2).build();
@@ -72,6 +70,8 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 		criticReview =
 				CriticReview.builder().author("Dimitra Koumparaki").body("Amazing!").rating(9.1).build();
 		filmService.addCriticReview(film, criticReview);
+
+		filmService.update(film);
 
 		TVShow tvShow = TVShow.builder().title("Game of Thrones").releaseYear(2005).numSeasons(8).build();
 		tvShowService.addGenre(tvShow, Genre.FANTASY);
