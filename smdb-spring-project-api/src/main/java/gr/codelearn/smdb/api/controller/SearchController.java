@@ -22,9 +22,8 @@ public class SearchController {
 	public ResponseEntity<ApiResponse<List<MultiSearch>>> multiSearch(
 			@RequestParam(value = "keyword") String keyword,
 			@RequestParam(value = "grouped", defaultValue = "false") Boolean grouped) {
-		List<MultiSearch> results = searchService.multiSearch(keyword, grouped);
 		return ResponseEntity.ok(ApiResponse.<List<MultiSearch>>builder()
-										 .data(results).totalResults(results.size()).build());
+										 .data(searchService.multiSearch(keyword, grouped)).build());
 	}
 
 
