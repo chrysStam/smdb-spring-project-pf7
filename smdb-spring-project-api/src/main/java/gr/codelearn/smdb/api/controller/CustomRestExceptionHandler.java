@@ -7,10 +7,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -45,6 +48,33 @@ public class CustomRestExceptionHandler extends AbstractLogComponent {
 		return new ResponseEntity<>(
 				ApiResponse.builder().apiError(getApiError(ex, HttpStatus.NOT_ACCEPTABLE, request, customMessage))
 						   .build(), HttpStatus.NOT_ACCEPTABLE);
+	}
+
+	@ExceptionHandler(MissingServletRequestParameterException.class)
+	protected ResponseEntity<ApiResponse<?>> handleMissingServletRequestParameter(
+			final MissingServletRequestParameterException ex, final WebRequest request) {
+		logger.error("There was a parameter missing from incoming request", ex);
+		return new ResponseEntity<>(
+				ApiResponse.builder().apiError(getApiError(ex, HttpStatus.BAD_REQUEST, request)).build(),
+				HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	protected ResponseEntity<ApiResponse<?>> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex,
+																		  final WebRequest request) {
+		logger.error("Method argument is invalid.", ex);
+		return new ResponseEntity<>(
+				ApiResponse.builder().apiError(getApiError(ex, HttpStatus.BAD_REQUEST, request)).build(),
+				HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	public ResponseEntity<ApiResponse<?>> handleMethodArgumentTypeMismatch(final MethodArgumentTypeMismatchException ex,
+																		   final WebRequest request) {
+		logger.error("Method argument, although matched, is of wrong type.", ex);
+		return new ResponseEntity<>(
+				ApiResponse.builder().apiError(getApiError(ex, HttpStatus.BAD_REQUEST, request)).build(),
+				HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(IOException.class)
