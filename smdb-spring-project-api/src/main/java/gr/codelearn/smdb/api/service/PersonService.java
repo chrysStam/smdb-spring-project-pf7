@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface PersonService extends BaseService<Person, Long> {
 
-	List<Film> getFilmContributionsOfPersonById(Long personId);
+	Person getPersonWithMostContributions();
 
-	List<TVShow> getTVShowContributionsOfPersonById(Long personId);
+	List<Person> getPeopleOfSpecificContent(Long contentId);
 
-
+	List<Person> getPeopleByContributionRole(Role role);
 }

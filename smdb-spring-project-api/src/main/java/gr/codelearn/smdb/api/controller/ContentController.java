@@ -73,6 +73,11 @@ public abstract class ContentController<T extends Content> extends AbstractContr
 				ApiResponse.<List<T>>builder().data(getBaseService().findAllByGenresContaining(genre)).build());
 	}
 
+	@GetMapping(path="people/{pId}", headers = "action=getContributionsOfPersonById")
+	public Callable<ResponseEntity<ApiResponse<List<T>>>> getContributionsOfPersonById(@PathVariable("pId") Long id) {
+		return () -> ResponseEntity.ok(
+				ApiResponse.<List<T>>builder().data(getBaseService().findContributionsOfPersonById(id)).build());
+
 	/* Content Contributor add/delete */
 
 	@PostMapping(path = "/{contentId}/contributors", params = {"personId", "role"})

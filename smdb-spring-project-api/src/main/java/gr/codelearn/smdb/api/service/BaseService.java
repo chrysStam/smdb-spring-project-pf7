@@ -3,9 +3,9 @@ package gr.codelearn.smdb.api.service;
 import java.util.List;
 
 public interface BaseService<T, ID> {
-	T create(T clazz);
+	T create(T entity);
 
-	void update(T clazz);
+	void update(T entity);
 
 	T find(ID id);
 

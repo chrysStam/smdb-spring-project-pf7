@@ -188,4 +188,8 @@ public abstract class ContentServiceImpl<T extends Content> extends BaseServiceI
 	public List<T> findAllByGenresContaining(final Genre genre) {
 		return getRepository().findAllByGenresContaining(genre);
 	}
+
+	public List<T> findContributionsOfPersonById(Long id){
+		return getRepository().findContributionsOfPersonById(id);
+	}
 }

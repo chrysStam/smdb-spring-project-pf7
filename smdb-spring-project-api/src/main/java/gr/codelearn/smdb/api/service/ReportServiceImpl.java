@@ -22,39 +22,43 @@ import java.util.List;
 public class ReportServiceImpl implements ReportService {
 	private final ReportRepository reportRepository;
 
-	@Override
-	public List<Content> searchByTitle(String title) {
-		return reportRepository.searchByTitle(title);
-	}
-
+	//	 Report 1: Return the top X high-rated content.
 	public List<Content> getTopXHighIMDBScore(Integer top){
 		return reportRepository.findTopXHighIMDBScore(PageRequest.of(0, top));
 	}
 
+	//	Report 2: Return all content associated with a given individual regardless of hir/her contributing role.
+	//	BY FULL NAME
 	public List<Content> getAllContentByContributorByFullName(String name,String surname){
 		return reportRepository.findByContributorByFullName(name,surname);
 	}
-
+	// BY ID
 	 public List<Content> getAllContentByContributorById(Long id){
 		return reportRepository.findContributionsOfPersonById(id);
 	 }
 
+	//	Report 3: Return all content associated with a given individual for a given contributing role.
+	// BY ID
 	 public List<Content> getAllContentByContributorByIdAndRole(Long id, Role role){
 		return reportRepository.findContributionsOfPersonByIdAndRole(id, role);
 	 }
 
+	//	BY FULL NAME
 	public List<Content> getAllContentByContributorByFullNameAndRole(String name,String surname,Role role){
 		return reportRepository.findByContributorByFullNameAndRole(name,surname,role);
 	}
 
+	//	Report 4: Return all content for a given genre
 	public List<Content> getAllContentByGenre(Genre genre) {
 		return reportRepository.findAllByGenresContaining(genre);
 	}
 
+	//	Report 5: Return the number of shows per genre
 	public List<NoOfContentPerGenreDto> getNoOfContentPerGenre(){
 		return reportRepository.findNoOfContentPerGenre();
 	}
 
+	//	Report 6: Return the numbers of shows per year per genre
 	public List<YearGenresStat> getNoOfContentPerYearPerGenre()  {
 		List<Integer> years = reportRepository.findYears();
 		List<YearGenresStat> results = new ArrayList<>();
@@ -68,6 +72,7 @@ public class ReportServiceImpl implements ReportService {
 		return results;
 	}
 
+	//	Report 7: Return all content associated with a given individual organized per genre
 	public List<ContributorGenre> getAllContentOfContributorByIdPerGenres(Long personId){
 		List<ContributorGenre> results = new ArrayList<>();
 		List<ContentOfContributorByIdByGenreDto> tmp;

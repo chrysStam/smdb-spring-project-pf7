@@ -18,12 +18,12 @@ import java.util.List;
 public class SearchController {
 	private final SearchService searchService;
 
-	@GetMapping(path = "/multi", params = {"keyword"})
-	public ResponseEntity<ApiResponse<List<MultiSearch<?>>>> multiSearch(@RequestParam(value = "keyword") String keyword,
-																	  @RequestParam(value = "grouped", defaultValue = "false") Boolean grouped) {
-		List<MultiSearch<?>> results = searchService.multiSearch(keyword, grouped);
-		return ResponseEntity.ok(ApiResponse.<List<MultiSearch<?>>>builder().data(results).totalResults(results.size())
-											.build());
+	@GetMapping(path = "/multi",params = {"keyword"})
+	public ResponseEntity<ApiResponse<List<MultiSearch<?>>> multiSearch(
+			@RequestParam(value = "keyword") String keyword,
+			@RequestParam(value = "grouped", defaultValue = "false") Boolean grouped) {
+		return ResponseEntity.ok(ApiResponse.<List<MultiSearch<?>>builder()
+										 .data(searchService.multiSearch(keyword, grouped)).build());
 	}
 
 }

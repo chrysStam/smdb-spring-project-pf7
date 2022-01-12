@@ -30,4 +30,6 @@ public interface ContentService<T extends Content> extends BaseService<T, Long> 
 	List<T> findByContributorByFullNameAndRole(String name, String surname, Role role);
 
 	List<T> findAllByGenresContaining(Genre genre);
+
+	List<T> findContributionsOfPersonById(Long id);
 }
