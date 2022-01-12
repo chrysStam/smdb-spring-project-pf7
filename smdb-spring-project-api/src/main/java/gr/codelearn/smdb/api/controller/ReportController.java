@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,8 +27,8 @@ public class ReportController {
 
 //	 Report 1: Return the top X high-rated content.
 	@GetMapping(params = {"top"})
-	public ResponseEntity<ApiResponse<List<Content>>> getTopXHighIMDBScore(@RequestParam("top") Integer num){
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
+	public Callable<ResponseEntity<ApiResponse<List<Content>>>> getTopXHighIMDBScore(@RequestParam("top") Integer num){
+		return ()-> ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 											.data(reportService.getTopXHighIMDBScore(num))
 											.build());
 	}
@@ -35,69 +36,69 @@ public class ReportController {
 //	Report 2: Return all content associated with a given individual regardless of his/her contributing role.
 //	BY FULL NAME
 	@GetMapping(params = {"name","surname"},  headers = "action=getAllContentByContributorByFullName")
-	public ResponseEntity<ApiResponse<List<Content>>> getAllContentByContributorByFullName(@RequestParam("name") String name,
+	public Callable<ResponseEntity<ApiResponse<List<Content>>>> getAllContentByContributorByFullName(@RequestParam("name") String name,
 																		@RequestParam("surname") String surname) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
+		return ()-> ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 											.data(reportService.getAllContentByContributorByFullName(name,surname))
 											.build());
 	}
 
 // 	BY ID
 	@GetMapping(params = {"pId"}, headers = "action=getAllContentByContributorById")
-	public ResponseEntity<ApiResponse<List<Content>>> getAllContentByContributorById(@RequestParam("pId") Long personId) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
+	public Callable<ResponseEntity<ApiResponse<List<Content>>>> getAllContentByContributorById(@RequestParam("pId") Long personId) {
+		return ()-> ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 										 .data(reportService.getAllContentByContributorById(personId)).build());
 	}
 
 //	Report 3: Return all content associated with a given individual for a given contributing role.
 //	BY FULL NAME
 	@GetMapping(params = {"name","surname","role"}, headers = "action=getAllContentByContributorByFullNameAndRole")
-	public ResponseEntity<ApiResponse<List<Content>>> getAllContentByContributorByFullNameAndRole(
+	public Callable<ResponseEntity<ApiResponse<List<Content>>>> getAllContentByContributorByFullNameAndRole(
 			@RequestParam("name") String name,
 		   @RequestParam("surname") String surname,
 		   @RequestParam("role") Role role) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
+		return ()-> ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 											.data(reportService.getAllContentByContributorByFullNameAndRole(name,surname,role))
 											.build());
 	}
 
 // BY ID
 	@GetMapping(params = {"pId","role"}, headers = "action=getAllContentByContributorByIdAndRole")
-	public ResponseEntity<ApiResponse<List<Content>>> getAllContentByContributorByIdAndRole(
+	public Callable<ResponseEntity<ApiResponse<List<Content>>>> getAllContentByContributorByIdAndRole(
 			@RequestParam("pId")  Long personId,
 			@RequestParam("role") Role role) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
+		return ()-> ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 										 .data(reportService.getAllContentByContributorByIdAndRole(personId, role)).build());
 	}
 
 //	Report 4: Return all content for a given genre
-	@GetMapping(params = {"genre"})
-	public ResponseEntity<ApiResponse<List<Content>>> getAllContentByGenre(@RequestParam("genre") Genre genre) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
+	@GetMapping(params = {"genre"}, headers = "action=getAllContentByGenre" )
+	public Callable<ResponseEntity<ApiResponse<List<Content>>>> getAllContentByGenre(@RequestParam("genre") Genre genre) {
+		return ()-> ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 											.data(reportService.getAllContentByGenre(genre))
 											.build());
 	}
 
 //	Report 5: Return the number of shows per genre
 	@GetMapping(headers = "action=getNoOfContentPerGenre")
-	public ResponseEntity<ApiResponse<List<NoOfContentPerGenreDto>>> getNoOfContentPerGenre() {
-		return ResponseEntity.ok(ApiResponse.<List<NoOfContentPerGenreDto>>builder()
+	public Callable<ResponseEntity<ApiResponse<List<NoOfContentPerGenreDto>>>> getNoOfContentPerGenre() {
+		return ()-> ResponseEntity.ok(ApiResponse.<List<NoOfContentPerGenreDto>>builder()
 											.data(reportService.getNoOfContentPerGenre())
 											.build());
 	}
 
 //	Report 6: Return the numbers of shows per year per genre
 	@GetMapping(headers = "action=getNoOfContentPerYearPerGenre")
-	public ResponseEntity<ApiResponse<List<YearGenresStat>>> getNoOfContentPerYearPerGenre() {
-		return ResponseEntity.ok(ApiResponse.<List<YearGenresStat>>builder()
+	public Callable<ResponseEntity<ApiResponse<List<YearGenresStat>>>> getNoOfContentPerYearPerGenre() {
+		return ()-> ResponseEntity.ok(ApiResponse.<List<YearGenresStat>>builder()
 										 .data(reportService.getNoOfContentPerYearPerGenre())
 										 .build());
 	}
 
 	//	Report 7: Return all content associated with a given individual organized per genre
 	@GetMapping(params = {"pId"}, headers = "action=getAllContentOfContributorByIdPerGenres")
-	public ResponseEntity<ApiResponse<List<ContributorGenre>>> getAllContentOfContributorByIdPerGenres(@PathVariable(value = "pId") Long personId) {
-		return ResponseEntity.ok(ApiResponse.<List<ContributorGenre>>builder()
+	public Callable<ResponseEntity<ApiResponse<List<ContributorGenre>>>> getAllContentOfContributorByIdPerGenres(@RequestParam(value = "pId") Long personId) {
+		return ()-> ResponseEntity.ok(ApiResponse.<List<ContributorGenre>>builder()
 										 .data(reportService.getAllContentOfContributorByIdPerGenres(personId)).build());
 	}
 
