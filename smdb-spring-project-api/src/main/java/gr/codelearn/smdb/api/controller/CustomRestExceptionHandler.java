@@ -4,6 +4,7 @@ import gr.codelearn.smdb.api.base.AbstractLogComponent;
 import gr.codelearn.smdb.api.transfer.ApiError;
 import gr.codelearn.smdb.api.transfer.ApiResponse;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -35,6 +36,15 @@ public class CustomRestExceptionHandler extends AbstractLogComponent {
 		logger.error("Reference to a non-existent object.", ex);
 		return new ResponseEntity<>(ApiResponse.builder().apiError(
 				getApiError(ex, HttpStatus.NOT_FOUND, request, "Reference to a non-existent object.")).build(),
+									HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(EmptyResultDataAccessException.class)
+	public final ResponseEntity<ApiResponse<?>> handleEmptyResultDataAccessException(final EmptyResultDataAccessException ex,
+																   final WebRequest request) {
+		logger.error("Entity doesn't exist.", ex);
+		return new ResponseEntity<>(ApiResponse.builder().apiError(
+				getApiError(ex, HttpStatus.NOT_FOUND, request, "Entity doesn't exist.")).build(),
 									HttpStatus.NOT_FOUND);
 	}
 
