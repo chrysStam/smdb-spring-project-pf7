@@ -23,11 +23,15 @@ public class PersonServiceImpl extends BaseServiceImpl<Person> implements Person
 	}
 
 	public Person getPersonWithMostContributions(){
-		return personRepository.findPersonIdWithTheMostContributions();
+		return personRepository.findPersonWithTheMostContributions();
 	}
 
 	public  List<Person> getPeopleOfSpecificContent(Long contentId){
 		return  personRepository.findPeopleOfSpecificContent(contentId);
+	}
+
+	public  List<Person> getPeopleByContributionRole(Role role){
+		return  personRepository.findPeopleByContributionRole(role.toString());
 	}
 
 }

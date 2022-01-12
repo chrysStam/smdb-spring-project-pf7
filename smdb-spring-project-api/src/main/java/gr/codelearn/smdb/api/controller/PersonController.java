@@ -1,6 +1,7 @@
 package gr.codelearn.smdb.api.controller;
 
 import gr.codelearn.smdb.api.domain.Person;
+import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.service.BaseService;
 import gr.codelearn.smdb.api.service.PersonService;
 import gr.codelearn.smdb.api.transfer.ApiResponse;
@@ -36,6 +37,12 @@ public class PersonController extends AbstractController<Person> {
 	public Callable<ResponseEntity<ApiResponse<List<Person>>>> getPeopleOfSpecificContent(@PathVariable("cId") Long contentId) {
 		return ()-> ResponseEntity.ok(ApiResponse.<List<Person>>builder()
 											.data(personService.getPeopleOfSpecificContent(contentId)).build());
+	}
+
+	@GetMapping(params={"role"}, headers = "action=getPeopleByContributionRole")
+	public Callable<ResponseEntity<ApiResponse<List<Person>>>> getPeopleByContributionRole(@RequestParam("role") Role role) {
+		return ()-> ResponseEntity.ok(ApiResponse.<List<Person>>builder()
+											.data(personService.getPeopleByContributionRole(role)).build());
 	}
 
 }

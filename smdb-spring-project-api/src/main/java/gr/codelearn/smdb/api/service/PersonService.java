@@ -14,4 +14,6 @@ public interface PersonService extends BaseService<Person, Long> {
 	Person getPersonWithMostContributions();
 
 	List<Person> getPeopleOfSpecificContent(Long contentId);
+
+	List<Person> getPeopleByContributionRole(Role role);
 }
