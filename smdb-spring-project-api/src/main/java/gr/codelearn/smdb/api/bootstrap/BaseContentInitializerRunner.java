@@ -46,9 +46,6 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 		filmService.addGenre(film, Genre.DRAMA);
 		filmService.addGenre(film, Genre.COMEDY);
 
-		// This will be ignored since genre is already added
-		filmService.addGenre(film, Genre.DRAMA);
-
 		film = filmService.create(film);
 
 		// Now that film's id has been generated, we can populate ContentContributor table with contributors
@@ -56,9 +53,6 @@ public class BaseContentInitializerRunner extends AbstractLogComponent implement
 		filmService.addContributor(film, person2, Role.ACTOR);
 		filmService.addContributor(film, person3, Role.DIRECTOR);
 		filmService.addContributor(film, person3, Role.PRODUCER);	// A person can have multiple roles
-
-		// This will be ignored since (person,role) tuple is already added
-		filmService.addContributor(film, person2, Role.ACTOR);
 
 		// Adding a critic review
 		CriticReview criticReview =

@@ -8,11 +8,16 @@ import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.Person;
 import gr.codelearn.smdb.api.domain.Role;
 import gr.codelearn.smdb.api.repository.ContentRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public abstract class ContentServiceImpl<T extends Content> extends BaseServiceImpl<T> implements ContentService<T> {
 
@@ -37,6 +42,32 @@ public abstract class ContentServiceImpl<T extends Content> extends BaseServiceI
 			logger.debug("Added Genre [{}] to Content [{}]", genre, content);
 		} else {
 			logger.warn("Genre [{}] already in Content [{}], nothing was changed.", genre, content);
+			throw new DataIntegrityViolationException(
+					"Genre [" + genre + "] already in Content with id [" + content.getId() + "], nothing was changed");
+		}
+	}
+
+	@Override
+	public void deleteGenre(T content, Genre genre) {
+		// Return if any parameter is null
+		if (content == null) {
+			logger.warn("Content is null");
+			return;
+		}
+		if (genre == null) {
+			logger.warn("Genre is null");
+			return;
+		}
+
+		// If genre is not contained in content, do nothing
+		boolean exists = content.getGenres().contains(genre);
+		if (exists) {
+			content.getGenres().remove(genre);
+			logger.debug("Deleted Genre [{}] from Content [{}]", genre, content);
+		} else {
+			logger.warn("Genre [{}] is not in Content [{}], nothing was deleted.", genre, content);
+			throw new NoSuchElementException(
+					"Genre [" + genre + "]  is not in Content with id [" + content.getId() + "], nothing was deleted.");
 		}
 	}
 
@@ -64,6 +95,43 @@ public abstract class ContentServiceImpl<T extends Content> extends BaseServiceI
 		} else {
 			logger.warn("Person [{}] with Role [{}] already contributing in Content [{}], nothing was changed.", person,
 						role, content);
+			throw new DataIntegrityViolationException(
+					"Person with id [" + person.getId() + "]  with Role [" + role + "] already in Content with id [" +
+							content.getId() + "], nothing was changed.");
+		}
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
+	public void deleteContributor(T content, Person person, Role role) {
+		// Return if any parameter is null
+		if (content == null) {
+			logger.warn("Content is null");
+			return;
+		}
+		if (person == null) {
+			logger.warn("Person is null");
+			return;
+		}
+		if (role == null) {
+			logger.warn("Role is null");
+			return;
+		}
+
+		// If the tuple (person,role) is not an existing contributor, do nothing
+		ContentContributor contentContributor = ContentContributor.builder().key(ContentContributorKey.builder().role(
+																		  role).contentId(content.getId()).personId(person.getId()).build()).content(content).person(person)
+																  .build();
+		boolean exists = content.getContentContributors().contains(contentContributor);
+		if (exists) {
+			getRepository().deleteContributor(content.getId(), person.getId(), role);
+			logger.debug("Deleted Person [{}] with Role [{}] as contributor from Content [{}]", person, role, content);
+		} else {
+			logger.warn("Person [{}] with Role [{}] does not contribute in Content [{}], nothing was deleted.", person,
+						role, content);
+			throw new NoSuchElementException(
+					"Person with id [" + person.getId() + "]  with Role [" + role + "] does not contribute in Content" +
+							" with id [" + content.getId() + "], nothing was deleted.");
 		}
 	}
 
