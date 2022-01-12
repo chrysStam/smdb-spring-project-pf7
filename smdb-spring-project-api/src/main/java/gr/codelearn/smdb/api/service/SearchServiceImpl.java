@@ -1,6 +1,5 @@
 package gr.codelearn.smdb.api.service;
 
-import gr.codelearn.smdb.api.domain.BaseModel;
 import gr.codelearn.smdb.api.domain.Content;
 import gr.codelearn.smdb.api.domain.CriticReview;
 import gr.codelearn.smdb.api.domain.Film;
@@ -19,18 +18,18 @@ public class SearchServiceImpl implements SearchService {
 
 	private final SearchRepository searchRepository;
 
-	public List<MultiSearch> multiSearch(String keyword, Boolean grouped){
+	public List<MultiSearch<?>> multiSearch(String keyword, Boolean grouped) {
 
-		List<Content> contList =
-				searchRepository.findByTitleContainingIgnoreCaseOrPlotSummaryContainingIgnoreCase(keyword,keyword);
+		List<Content> contList = searchRepository.findByTitleContainingIgnoreCaseOrPlotSummaryContainingIgnoreCase(
+				keyword, keyword);
 
-		List<Person> personList = searchRepository.searchInPerson(keyword,keyword);
+		List<Person> personList = searchRepository.searchInPerson(keyword, keyword);
 
 		List<CriticReview> criticReviewList = searchRepository.searchInCriticReview(keyword);
 
-		List<MultiSearch> results = new ArrayList<>();
+		List<MultiSearch<?>> results = new ArrayList<>();
 
-		if(grouped) {
+		if (grouped) {
 			if (!contList.isEmpty()) {
 				MultiSearch<List<Content>> elemFilm = new MultiSearch<>();
 				MultiSearch<List<Content>> elemTvShow = new MultiSearch<>();
@@ -73,16 +72,15 @@ public class SearchServiceImpl implements SearchService {
 				results.add(elem);
 			}
 
-		}
-		else{
-			if (!contList.isEmpty()){
-				for (Content content:contList ) {
-					if (content instanceof Film){
+		} else {
+			if (!contList.isEmpty()) {
+				for (Content content : contList) {
+					if (content instanceof Film) {
 						MultiSearch<Content> elemFilm = new MultiSearch<>();
 						elemFilm.setType("FILM");
 						elemFilm.setInfos(content);
 						results.add(elemFilm);
-					}else {
+					} else {
 						MultiSearch<Content> elemTvShow = new MultiSearch<>();
 						elemTvShow.setType("TVSHOW");
 						elemTvShow.setInfos(content);
@@ -92,16 +90,16 @@ public class SearchServiceImpl implements SearchService {
 
 			}
 
-			if(!personList.isEmpty()){
-				for (Person person: personList) {
+			if (!personList.isEmpty()) {
+				for (Person person : personList) {
 					MultiSearch<Person> elem = new MultiSearch<>();
 					elem.setType("PERSON");
 					elem.setInfos(person);
 					results.add(elem);
 				}
 			}
-			if(!criticReviewList.isEmpty()){
-				for (CriticReview criticReview: criticReviewList) {
+			if (!criticReviewList.isEmpty()) {
+				for (CriticReview criticReview : criticReviewList) {
 					MultiSearch<CriticReview> elem = new MultiSearch<>();
 					elem.setType("CRITIC REVIEW");
 					elem.setInfos(criticReview);
@@ -112,5 +110,4 @@ public class SearchServiceImpl implements SearchService {
 
 		return results;
 	}
-
 }
