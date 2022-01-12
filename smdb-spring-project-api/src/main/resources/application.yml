@@ -44,7 +44,7 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         jdbc:
           batch_size: 1000
-        format_sql: true
+        format_sql: false
         order_inserts: true
         order_updates: true
         query:
@@ -54,7 +54,7 @@ spring:
           events:
             log:
               LOG_QUERIES_SLOWER_THAN_MS: 10 # NOT a production setting
-    show-sql: true
+    show-sql: false
   sql:
     init:
       # Mode to apply when determining if DataSource initialization should be performed using the available DDL (schema

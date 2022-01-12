@@ -19,4 +19,6 @@ public class ApiResponse<T> implements Serializable {
 	T data;
 
 	ApiError apiError;
+
+	Integer totalResults;
 }
