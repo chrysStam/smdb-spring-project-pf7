@@ -10,22 +10,21 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public abstract class BaseServiceImpl<T extends BaseModel> extends AbstractLogComponent
-		implements BaseService<T, Long> {
+public abstract class BaseServiceImpl<T extends BaseModel> extends AbstractLogComponent implements BaseService<T, Long> {
 	public abstract JpaRepository<T, Long> getRepository();
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
-	public T create(final T clazz) {
-		logger.trace("Creating {}.", clazz);
-		return getRepository().save(clazz);
+	public T create(final T entity) {
+		logger.trace("Creating {}.", entity);
+		return getRepository().save(entity);
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
-	public void update(final T clazz) {
-		logger.trace("Updating {}.", clazz);
-		getRepository().save(clazz);
+	public void update(final T entity) {
+		logger.trace("Updating {}.", entity);
+		getRepository().save(entity);
 	}
 
 	@Override

@@ -24,23 +24,17 @@ import java.util.List;
 public class ReportController {
 	private final ReportService reportService;
 
-	@GetMapping(path= "search", params = {"title"})
-	public ResponseEntity<ApiResponse<List<Content>>> searchByTitle(@RequestParam("title") String title) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-											.data(reportService.searchByTitle(title))
-											.build());
-	}
-
-
-	@GetMapping(path = "contents/top", params = {"num"})
-	public ResponseEntity<ApiResponse<List<Content>>> getTopXHighIMDBScore(@RequestParam("num") Integer num){
+//	 Report 1: Return the top X high-rated content.
+	@GetMapping(params = {"top"})
+	public ResponseEntity<ApiResponse<List<Content>>> getTopXHighIMDBScore(@RequestParam("top") Integer num){
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 											.data(reportService.getTopXHighIMDBScore(num))
 											.build());
 	}
 
-
-	@GetMapping(path = "contents/person", params = {"name","surname"})
+//	Report 2: Return all content associated with a given individual regardless of his/her contributing role.
+//	BY FULL NAME
+	@GetMapping(params = {"name","surname"},  headers = "action=getAllContentByContributorByFullName")
 	public ResponseEntity<ApiResponse<List<Content>>> getAllContentByContributorByFullName(@RequestParam("name") String name,
 																		@RequestParam("surname") String surname) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
@@ -48,62 +42,64 @@ public class ReportController {
 											.build());
 	}
 
-	@GetMapping(path = "contents/person/{pId}", headers = "action=getContributionsOfPersonById", produces =
-			"application/vnd.app-v1+json")
-	public ResponseEntity<ApiResponse<List<Content>>> getContributionsOfPersonById(
-			@PathVariable(value = "pId") Long personId) {
+// 	BY ID
+	@GetMapping(params = {"pId"}, headers = "action=getAllContentByContributorById")
+	public ResponseEntity<ApiResponse<List<Content>>> getAllContentByContributorById(@RequestParam("pId") Long personId) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 										 .data(reportService.getAllContentByContributorById(personId)).build());
 	}
 
-	@GetMapping(path = "contents/person", params = {"name","surname","role"})
-	public ResponseEntity<ApiResponse<List<Content>>> getByContributorByNameAndRole(@RequestParam("name") String name,
-																			   @RequestParam("surname") String surname,
-																			   @RequestParam("role") Role role) {
+//	Report 3: Return all content associated with a given individual for a given contributing role.
+//	BY FULL NAME
+	@GetMapping(params = {"name","surname","role"}, headers = "action=getAllContentByContributorByFullNameAndRole")
+	public ResponseEntity<ApiResponse<List<Content>>> getAllContentByContributorByFullNameAndRole(
+			@RequestParam("name") String name,
+		   @RequestParam("surname") String surname,
+		   @RequestParam("role") Role role) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 											.data(reportService.getAllContentByContributorByFullNameAndRole(name,surname,role))
 											.build());
 	}
 
+// BY ID
+	@GetMapping(params = {"pId","role"}, headers = "action=getAllContentByContributorByIdAndRole")
+	public ResponseEntity<ApiResponse<List<Content>>> getAllContentByContributorByIdAndRole(
+			@RequestParam("pId")  Long personId,
+			@RequestParam("role") Role role) {
+		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
+										 .data(reportService.getAllContentByContributorByIdAndRole(personId, role)).build());
+	}
 
-	@GetMapping(path = "contents", params = {"genre"})
-	public ResponseEntity<ApiResponse<List<Content>>> find2(@RequestParam("genre") Genre genre) {
+//	Report 4: Return all content for a given genre
+	@GetMapping(params = {"genre"})
+	public ResponseEntity<ApiResponse<List<Content>>> getAllContentByGenre(@RequestParam("genre") Genre genre) {
 		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
 											.data(reportService.getAllContentByGenre(genre))
 											.build());
 	}
 
-	@GetMapping(path = "genres/num")
+//	Report 5: Return the number of shows per genre
+	@GetMapping(headers = "action=getNoOfContentPerGenre")
 	public ResponseEntity<ApiResponse<List<NoOfContentPerGenreDto>>> getNoOfContentPerGenre() {
 		return ResponseEntity.ok(ApiResponse.<List<NoOfContentPerGenreDto>>builder()
 											.data(reportService.getNoOfContentPerGenre())
 											.build());
 	}
 
-	@GetMapping(path = "years")
+//	Report 6: Return the numbers of shows per year per genre
+	@GetMapping(headers = "action=getNoOfContentPerYearPerGenre")
 	public ResponseEntity<ApiResponse<List<YearGenresStat>>> getNoOfContentPerYearPerGenre() {
 		return ResponseEntity.ok(ApiResponse.<List<YearGenresStat>>builder()
 										 .data(reportService.getNoOfContentPerYearPerGenre())
 										 .build());
 	}
 
-	@GetMapping(path = "/person/{pId}/contents/genre",
-				headers = "action=getAllContentOfContributorByIdPerGenres",
-				produces ="application/vnd.app-v1+json")
+	//	Report 7: Return all content associated with a given individual organized per genre
+	@GetMapping(params = {"pId"}, headers = "action=getAllContentOfContributorByIdPerGenres")
 	public ResponseEntity<ApiResponse<List<ContributorGenre>>> getAllContentOfContributorByIdPerGenres(@PathVariable(value = "pId") Long personId) {
 		return ResponseEntity.ok(ApiResponse.<List<ContributorGenre>>builder()
 										 .data(reportService.getAllContentOfContributorByIdPerGenres(personId)).build());
 	}
 
-	@GetMapping(path = "/person/{pId}/contents", params = "role", headers = "action" +
-			"=getContributionsOfPersonByIdByRole",
-			produces =
-					"application/vnd.app-v1+json")
-	public ResponseEntity<ApiResponse<List<Content>>> getContributionsOfPersonByIdByRole(
-			@PathVariable(value = "pId") Long personId,
-			@RequestParam("role") Role role) {
-		return ResponseEntity.ok(ApiResponse.<List<Content>>builder()
-										 .data(reportService.getAllContentByContributorByIdAndRole(personId, role)).build());
-	}
 
 }

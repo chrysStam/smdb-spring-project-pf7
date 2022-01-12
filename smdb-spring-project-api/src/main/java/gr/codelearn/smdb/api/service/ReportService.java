@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ReportService {
 
-	List<Content> getTopXHighIMDBScore(Integer top); // List of relevant Films and TVShows (only relevant attributes?)
+	List<Content> getTopXHighIMDBScore(Integer top);
 
 	List<Content> getAllContentByContributorByFullName(String name,String surname);
 
@@ -28,6 +28,4 @@ public interface ReportService {
 	List<YearGenresStat> getNoOfContentPerYearPerGenre();
 
 	List<ContributorGenre> getAllContentOfContributorByIdPerGenres(Long personId);
-
-	List<Content> searchByTitle(String title);
 }
