@@ -11,7 +11,11 @@ import java.util.List;
 public interface ContentService<T extends Content> extends BaseService<T, Long> {
 	void addGenre(T content, Genre genre);
 
+	void deleteGenre(T content, Genre genre);
+
 	void addContributor(T content, Person person, Role role);
+
+	void deleteContributor(T content, Person person, Role role);
 
 	void addCriticReview(T content, CriticReview criticReview);
 

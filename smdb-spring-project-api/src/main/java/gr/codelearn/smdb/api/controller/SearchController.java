@@ -19,12 +19,11 @@ public class SearchController {
 	private final SearchService searchService;
 
 	@GetMapping(path = "/multi",params = {"keyword"})
-	public ResponseEntity<ApiResponse<List<MultiSearch>>> multiSearch(
+	public ResponseEntity<ApiResponse<List<MultiSearch<?>>> multiSearch(
 			@RequestParam(value = "keyword") String keyword,
 			@RequestParam(value = "grouped", defaultValue = "false") Boolean grouped) {
-		return ResponseEntity.ok(ApiResponse.<List<MultiSearch>>builder()
+		return ResponseEntity.ok(ApiResponse.<List<MultiSearch<?>>builder()
 										 .data(searchService.multiSearch(keyword, grouped)).build());
 	}
-
 
 }

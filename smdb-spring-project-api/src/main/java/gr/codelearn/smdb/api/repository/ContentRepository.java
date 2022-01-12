@@ -5,13 +5,22 @@ import gr.codelearn.smdb.api.domain.Film;
 import gr.codelearn.smdb.api.domain.Genre;
 import gr.codelearn.smdb.api.domain.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface ContentRepository<T extends Content> extends JpaRepository<T, Long> {
+
+	@Modifying
+	@Query("delete from ContentContributor cC where cC.key.contentId=:contentId and cC.key.personId=:personId and cC" +
+			".key.role=:role")
+	void deleteContributor(@Param("contentId") Long contentId, @Param("personId") Long personId,
+						   @Param("role") Role role);
+
 	List<T> findByTitle(String title);
 
 	List<T> findByTitleContainingIgnoreCase(String title);

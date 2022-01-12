@@ -6,6 +6,8 @@ import gr.codelearn.smdb.api.repository.TVShowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TVShowServiceImpl extends ContentServiceImpl<TVShow> implements TVShowService {
@@ -14,5 +16,10 @@ public class TVShowServiceImpl extends ContentServiceImpl<TVShow> implements TVS
 	@Override
 	public ContentRepository<TVShow> getRepository() {
 		return tvShowRepository;
+	}
+
+	@Override
+	public List<TVShow> findByCompletion(final Boolean completed) {
+		return completed ? tvShowRepository.findByEndYearNotNull() : tvShowRepository.findByEndYearNull();
 	}
 }
