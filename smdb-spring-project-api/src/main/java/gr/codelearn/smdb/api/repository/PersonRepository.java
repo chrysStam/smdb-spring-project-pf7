@@ -20,5 +20,9 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 	@Query("select f from Film f join f.contentContributors fC where fC.key.personId = ?1")
 	List<Film>getFilmContributionsOfPersonById(Long personId);
 
-
+	@Query(value="Select * from people where id=(Select person_id " +
+			"From(SELECT person_id, count(person_id) as contributions " +
+			"FROM CONTENT_CONTRIBUTORS group by person_id order by contributions desc limit 1));"
+			, nativeQuery=true)
+	Person findPersonIdWithTheMostContributions();
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,22 +31,24 @@ public class PersonController extends AbstractController<Person> {
 	}
 
 
-	@GetMapping(path = "/{pId}/tvshows", headers = "action=getTVShowContributionsOfPersonById", produces =
-			"application/vnd.app-v1+json")
+	@GetMapping(path = "/{pId}/tvshows", headers = "action=getTVShowContributionsOfPersonById")
 	public ResponseEntity<ApiResponse<List<TVShow>>> getTVShowContributionsOfPersonById(
 			@PathVariable(value = "pId") Long personId) {
 		return ResponseEntity.ok(ApiResponse.<List<TVShow>>builder()
 											.data(personService.getTVShowContributionsOfPersonById(personId)).build());
 		}
 
-	@GetMapping(path = "/{pId}/films", headers = "action=getFilmContributionsOfPersonById", produces =
-			"application/vnd.app-v1+json")
+	@GetMapping(path = "/{pId}/films", headers = "action=getFilmContributionsOfPersonById")
 	public ResponseEntity<ApiResponse<List<Film>>> getFilmContributionsOfPersonById(
 			@PathVariable(value = "pId") Long personId) {
 		return ResponseEntity.ok(ApiResponse.<List<Film>>builder()
 											.data(personService.getFilmContributionsOfPersonById(personId)).build());
 	}
 
-
+	@GetMapping(headers = "action=getPersonWithMostContributions")
+	public Callable<ResponseEntity<ApiResponse<Person>>> getPersonWithMostContributions() {
+		return ()-> ResponseEntity.ok(ApiResponse.<Person>builder()
+											.data(personService.getPersonWithMostContributions()).build());
+	}
 
 }

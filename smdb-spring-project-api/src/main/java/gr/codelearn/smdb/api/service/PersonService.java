@@ -15,5 +15,7 @@ public interface PersonService extends BaseService<Person, Long> {
 
 	List<TVShow> getTVShowContributionsOfPersonById(Long personId);
 
+	Person getPersonWithMostContributions();
+
 
 }

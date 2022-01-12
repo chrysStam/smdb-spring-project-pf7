@@ -30,4 +30,8 @@ public class PersonServiceImpl extends BaseServiceImpl<Person> implements Person
 		return personRepository.getFilmContributionsOfPersonById(personId);
 	}
 
+	public Person getPersonWithMostContributions(){
+		return personRepository.findPersonIdWithTheMostContributions();
+	}
+
 }
