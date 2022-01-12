@@ -8,8 +8,10 @@ import gr.codelearn.smdb.api.service.ContentService;
 import gr.codelearn.smdb.api.transfer.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -64,5 +66,11 @@ public abstract class ContentController<T extends Content> extends AbstractContr
 	public Callable<ResponseEntity<ApiResponse<List<T>>>> findByGenre(@RequestParam("genre") Genre genre) {
 		return () -> ResponseEntity.ok(
 				ApiResponse.<List<T>>builder().data(getBaseService().findAllByGenresContaining(genre)).build());
+	}
+
+	@GetMapping(path="people/{pId}", headers = "action=getContributionsOfPersonById")
+	public Callable<ResponseEntity<ApiResponse<List<T>>>> getContributionsOfPersonById(@PathVariable("pId") Long id) {
+		return () -> ResponseEntity.ok(
+				ApiResponse.<List<T>>builder().data(getBaseService().findContributionsOfPersonById(id)).build());
 	}
 }
