@@ -6,3 +6,5 @@
 `Sofronios Sartinas`
 `Theodoros Mystiloglou`
 
+
+[Postman Endpoints](https://www.postman.com/universal-equinox-154576/workspace/smdb-pf7-team-6/overview)
