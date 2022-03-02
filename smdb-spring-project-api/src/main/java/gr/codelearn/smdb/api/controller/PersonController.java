@@ -29,18 +29,21 @@ public class PersonController extends AbstractController<Person> {
 
 	@GetMapping(headers = "action=getPersonWithMostContributions")
 	public Callable<ResponseEntity<ApiResponse<Person>>> getPersonWithMostContributions() {
+		logger.info("PersonController: getPersonWithMostContributions endpoint invoked");
 		return ()-> ResponseEntity.ok(ApiResponse.<Person>builder()
 											.data(personService.getPersonWithMostContributions()).build());
 	}
 
 	@GetMapping(path="/contents/{cId}", headers = "action=getPeopleOfSpecificContent")
 	public Callable<ResponseEntity<ApiResponse<List<Person>>>> getPeopleOfSpecificContent(@PathVariable("cId") Long contentId) {
+		logger.info("PersonController: getPeopleOfSpecificContent endpoint invoked");
 		return ()-> ResponseEntity.ok(ApiResponse.<List<Person>>builder()
 											.data(personService.getPeopleOfSpecificContent(contentId)).build());
 	}
 
 	@GetMapping(params={"role"}, headers = "action=getPeopleByContributionRole")
 	public Callable<ResponseEntity<ApiResponse<List<Person>>>> getPeopleByContributionRole(@RequestParam("role") Role role) {
+		logger.info("PersonController: getPeopleByContributionRole endpoint invoked");
 		return ()-> ResponseEntity.ok(ApiResponse.<List<Person>>builder()
 											.data(personService.getPeopleByContributionRole(role)).build());
 	}
