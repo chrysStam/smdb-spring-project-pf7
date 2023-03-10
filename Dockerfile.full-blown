@@ -1,0 +1,13 @@
+# Using a full blown container for build - no local java and maven installation required
+
+# Build with: docker build -f Dockerfile.full-blown -t image_name .
+# Run with:   docker run -p 8080:8080 -d image_name
+
+FROM debian:bullseye-slim
+RUN apt update
+RUN apt install -y default-jre
+RUN apt install -y default-jdk
+RUN apt install -y maven
+COPY . .
+RUN mvn install
+ENTRYPOINT ["java","-jar","/smdb-spring-project-api/target/smdb-spring-project-api-2021.1.0.jar"]

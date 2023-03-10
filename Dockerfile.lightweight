@@ -1,0 +1,8 @@
+# Using a minimal java container - requires building locally the app using your PC's maven and java installation
+
+# Build with: docker build -f Dockerfile.lightweight -t image_name .
+# Run with:   docker run -p 8080:8080 -d image_name
+
+FROM amazoncorretto:11-alpine3.14
+COPY ./smdb-spring-project-api/target/smdb-spring-project-api-2021.1.0.jar .
+ENTRYPOINT ["java","-jar","/smdb-spring-project-api-2021.1.0.jar"]
